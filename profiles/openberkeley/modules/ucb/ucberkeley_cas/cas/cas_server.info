@@ -1,0 +1,11 @@
+name = CAS Server
+package = Central Authentication Service
+core = 7.x
+description = "Provides protocol compliant CAS Server"
+
+; Information added by Drupal.org packaging script on 2014-04-02
+version = "7.x-1.3"
+core = "7.x"
+project = "cas"
+datestamp = "1396458247"
+
