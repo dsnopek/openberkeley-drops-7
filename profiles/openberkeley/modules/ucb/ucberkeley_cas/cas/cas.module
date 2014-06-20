@@ -28,6 +28,10 @@ function cas_init() {
     // do any processing here. Necessary for CAS gateway tests.
     return;
   }
+  elseif (defined('MAINTENANCE_MODE') && MAINTENANCE_MODE === 'install') {
+    //Do nothing on profile install.
+    return;
+  }
 
   // Process a single-sign out request.
   _cas_single_sign_out_check();
