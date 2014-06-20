@@ -29,6 +29,22 @@ function openberkeley_install_tasks_alter(&$tasks, $install_state) {
   if (!(count(install_find_locales($install_state['parameters']['profile'])) > 1)) {
     $tasks['install_select_locale']['function'] = 'panopoly_core_install_locale_selection';
   }
+
+  // Wrap the install_profile_modules task, so we can do some configuration
+  // before it starts.
+  $tasks['install_profile_modules']['function'] = 'openberkeley_install_profile_modules';
+}
+
+/**
+ * Wraps install_profile_modules() so we can do some configuration beforehand.
+ */
+function openberkeley_install_profile_modules(&$install_state) {
+  // Give our Features more time to rebuild before timing out. This fixes an
+  // issue with installing on Pantheon.
+  variable_set('features_restore_time_limit_rebuild', 500);
+
+  // Now, actually install the modules.
+  return install_profile_modules($install_state);
 }
 
 /**
