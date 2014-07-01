@@ -28,8 +28,9 @@ projects[ucb_openberkeley][type] = module
 projects[ucb_openberkeley][subdir] = ucb
 projects[ucb_openberkeley][download][type] = git
 projects[ucb_openberkeley][download][url] = git://github.com/ucb-ist-drupal/ucb_openberkeley.git
-; head ;projects[ucb_openberkeley][download][tag] =
-; master ;projects[ucb_openberkeley][download][branch] = 7.x-1.x
+; Until wysiwyg updates are made, use revision that has wysiwyg workaround for editor profile
+projects[ucb_openberkeley][download][branch] = master
+projects[ucb_openberkeley][download][revision] = 3fc008d
 
 projects[openberkeley_update][type] = module
 projects[openberkeley_update][subdir] = openberkeley
