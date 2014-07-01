@@ -13,6 +13,9 @@ projects[ucb_envconf][download][tag] = 7.x-1.1-beta2
 projects[ucb_envconf][download][branch] = 7.x-1.x
 
 ; NOTE: enabling ucb_cas breaks install, but if you let ucb_envconf enable it (dependency), it works
+; If running a clean install via rebuild.sh, all ucb_cas files need to be manually added
+; For now, manually re-add ucb_cas after running a clean install via rebuild.sh
+; TODO: Figure out how to add to this makefile (leave out of .info)
 ; projects[ucb_cas][type] = module
 ; projects[ucb_cas][subdir] = ucb
 ; projects[ucb_cas][download][type] = git
@@ -137,26 +140,9 @@ projects[zen][type] = theme
 ; *******************************************
 ; ***** Updates Different from Panopoly *****
 
-; OPENUCB-288 - Security update for Field API Pane Editor (FAPE) -- remove when Panopoly 1.5 applied
-projects[fape][version] = 1.2
-projects[fape][subdir] = contrib
-
 ; OPENUCB-217 - Add Features Override
 projects[features_override][version] = 2.0-rc1
 projects[features_override][subdir] = contrib
-
-; OPENUCB-225 - Media module Wysiwyg integration (File Entity should be updated with Media)
-projects[file_entity][version] = 2.0-alpha3
-projects[file_entity][subdir] = contrib
-
-; OPENUCB-225 - Media module Wysiwyg integration (media-7.x-2.0-alpha3+26-dev on 12/3/13)
-projects[media][version] = 2.x-dev
-projects[media][subdir] = contrib
-projects[media][type] = module
-projects[media][download][type] = git
-projects[media][download][revision] = 8fe0f7d
-projects[media][download][branch] = 7.x-2.x
-projects[media][patch][2126755] = https://drupal.org/files/issues/media-improved-macro-handling-2126755-19.patch
 
 ; ***** End Updates Different from Panopoly *****
 ; ***********************************************
@@ -174,35 +160,35 @@ projects[media][patch][2126755] = https://drupal.org/files/issues/media-improved
 
 ; The Panopoly Foundation
 
-projects[panopoly_core][version] = 1.2
+projects[panopoly_core][version] = 1.6
 projects[panopoly_core][subdir] = panopoly
 
-projects[panopoly_images][version] = 1.2
+projects[panopoly_images][version] = 1.6
 projects[panopoly_images][subdir] = panopoly
 
-projects[panopoly_theme][version] = 1.2
+projects[panopoly_theme][version] = 1.6
 projects[panopoly_theme][subdir] = panopoly
 
-projects[panopoly_magic][version] = 1.2
+projects[panopoly_magic][version] = 1.6
 projects[panopoly_magic][subdir] = panopoly
 
-projects[panopoly_widgets][version] = 1.2
+projects[panopoly_widgets][version] = 1.6
 projects[panopoly_widgets][subdir] = panopoly
 
-projects[panopoly_admin][version] = 1.2
+projects[panopoly_admin][version] = 1.6
 projects[panopoly_admin][subdir] = panopoly
 
-projects[panopoly_users][version] = 1.2
+projects[panopoly_users][version] = 1.6
 projects[panopoly_users][subdir] = panopoly
 
 ; The Panopoly Toolset
 
-projects[panopoly_pages][version] = 1.2
+projects[panopoly_pages][version] = 1.6
 projects[panopoly_pages][subdir] = panopoly
 
-projects[panopoly_wysiwyg][version] = 1.2
+projects[panopoly_wysiwyg][version] = 1.6
 projects[panopoly_wysiwyg][subdir] = panopoly
 
-projects[panopoly_search][version] = 1.2
+projects[panopoly_search][version] = 1.6
 projects[panopoly_search][subdir] = panopoly
 
