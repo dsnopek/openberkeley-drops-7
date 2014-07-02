@@ -25,6 +25,8 @@ class FeatureContext extends DrupalContext
 {
   protected $bootstrapped = FALSE;
   protected $landing_pages = array();
+  protected $panopoly_test_enabled = FALSE;
+
   /**
    * Initializes context.
    * Every scenario gets its own context object.
@@ -251,6 +253,32 @@ class FeatureContext extends DrupalContext
     }
     if (empty($result)) {
       throw new \Exception(sprintf('No alt text matching "%s" in the "%s" region on the page %s', $alt, $region, $this->getSession()->getCurrentUrl()));
+    }
+  }
+
+  /**
+   * @BeforeScenario
+   *
+   * Enable the panopoly_test module before starting the tests.
+   */
+  public function enablePanopolyTestModule($event) {
+    if (!$this->panopoly_test_enabled) {
+      $this->getDriver('drush')->en('panopoly_test --yes');
+      $this->panopoly_test_enabled = TRUE;
+
+      // This is a hack because @AfterSuite has to be a static method, which
+      // means it can't access the DrushDriver.
+      register_shutdown_function(array($this, 'disablePanopolyTestModule'));
+    }
+  }
+
+  /**
+   * Disable the panopoly_test module after finishing the tests.
+   */
+  public function disablePanopolyTestModule() {
+    if ($this->panopoly_test_enabled) {
+      $this->getDriver('drush')->dis('panopoly_test --yes');
+      $this->panopoly_test_enabled = FALSE;
     }
   }
 
