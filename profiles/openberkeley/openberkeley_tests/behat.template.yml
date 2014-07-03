@@ -1,0 +1,67 @@
+default:
+  filters:
+    tags: "~@headless&&~@disabled"
+  context:
+    parameters:
+      calnet: true
+      editor: tinymce
+      wysiwyg_iframe: edit-fieldname-und-0-value_ifr
+  paths:
+    features: 'features'
+  extensions:
+    Behat\MinkExtension\Extension:
+      selenium2: ~
+      # change this:
+      base_url: http://${drupal.uri}
+      goutte:
+      #if using acquia dev desktop only; otherwise ~
+        guzzle_parameters:
+          curl.options:
+            CURLOPT_PORT: 8082
+      files_path: ./
+      # required for wysiwyg tests - firefox can't do contenteditable
+      browser_name: chrome
+    Drupal\DrupalExtension\Extension:
+      blackbox: ~
+      api_driver: 'drupal'
+      drupal:
+        drupal_root: '/path/to/drupal/root'
+      drush:
+        # change this:
+        alias: 'local'
+      region_map:
+        #OB regions
+        Page title: "#page-title"
+        Boxton Content: ".boxton-content"
+        Tabs: ".tabs-primary"
+        Header: "#header"
+        Content: "#content"
+        Footer: "#footerwrapper"
+        Main menu: '#main-menu'
+        Linkit Modal: "#linkit-modal"
+        # Regions for Panopoly Layouts
+        Bryant Content: ".bryant-content"
+        Bryant Sidebar: ".bryant-sidebar"
+        Bryant Flipped Content: ".bryant-flipped-content"
+        Bryant Flipped Sidebar: ".bryant-flipped-sidebar"
+        # For Panels / Panopoly specific regions.
+        CTools modal: "#modalContent"
+        Live preview: "fieldset.widget-preview"
+      selectors:
+        message_selector: '.messages'
+        error_message_selector: '.messages.messages-error'
+        success_message_selector: '.messages.messages-status'
+      # Look in the profile modules directory and pull in module subcontexts.
+      subcontexts:
+        paths:
+          - "../modules"
+
+# phantomjs profile for headless tests only
+headless:
+  filters:
+    tags: "@headless&&~@disabled"
+  extensions:
+    Behat\MinkExtension\Extension:
+      default_session: selenium2
+      selenium2:
+        wd_host: "http://localhost:8643/wd/hub"
