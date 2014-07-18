@@ -10,8 +10,7 @@ function openberkeley_install_tasks(&$install_state) {
   // Should we want to style the installer, we'd alter the above
 
   //$tasks = $tasks + array("openberkeley_add_admin_form" => array("display_name" => "Setup UC Berkeley Administrator", "type" => "form"));
-  require_once(drupal_get_path('module', 'cas') . '/cas.user.inc');
-  $tasks = $tasks + array("cas_add_user_form" => array("display_name" => "Setup UC Berkeley Administrator", "type" => "form"));
+  $tasks = $tasks + array("openberkeley_add_admin_form" => array("display_name" => "Setup UC Berkeley Administrator", "type" => "form"));
 
   // Add the Panopoly theme selection to the installation process
   require_once(drupal_get_path('module', 'panopoly_theme') . '/panopoly_theme.profile.inc');
@@ -56,20 +55,19 @@ function openberkeley_form_install_configure_form_alter(&$form, $form_state) {
   openberkeley_wysiwyg_override_form_system_site_information_settings_alter($form, $form_state);
 }
 
-/*
+/**
+ *
+ */
 function openberkeley_add_admin_form() {
   require_once(drupal_get_path('module', 'cas') . '/cas.user.inc');
-  return drupal_get_form('cas_add_user_form');
-}
-*/
-
-/**
- * Implements hook_form_FORM_ID_alter()
- */
-function openberkeley_form_cas_add_user_form_alter(&$form, $form_state) {
+  $form = cas_add_user_form();
   $form['account']['cas_name']['#required'] = FALSE;
   $form['account']['cas_name_txt']['#weight'] = -15;
-  $form['account']['cas_name_txt']['#markup'] = "In this step we will setup the administrator account that you will use.  If you don't know your CAS User ID, follow these instructions: <p><em>" . $form['account']['cas_name_txt']['#markup'] . "</em></p>";
+  $form['account']['cas_name_txt']['#markup'] = "In this step we will setup the administrator account that you will use.
+  If you don't know your CAS User ID, follow these instructions: <p><em>To find the CAS User ID for a UC Berkeley employee visit the "
+    . l("CalNet Directory", 'https://calnet.berkeley.edu/directory/index.pl', array('attributes' => array('target'=>'_blank')))
+    . " and search for the person.  In your search results click on the person's name. At the top of the page you should see
+    <em>Details for Jane Smith (UID: 111111)</em>. Copy that UID number and paste it in to the CAS User ID box below.</em></p>";
   $form['account']['cas_name']['#title'] = "Your CAS User ID";
   $form['actions']['submit']['#value'] = "Create CalNet Administrator";
   $form['actions']['skip'] = array(
@@ -83,17 +81,7 @@ function openberkeley_form_cas_add_user_form_alter(&$form, $form_state) {
   // Replace the cas validate/submit handlers with ours
   $form['#validate'] = array('openberkeley_add_admin_form_validate');
   $form['#submit'] = array('openberkeley_add_admin_form_submit');
-}
-
-/**
- * Implementation of hook_cas_user_presave()
- * Assign the administrator role to the new CAS user.
- */
-function openberkeley_cas_user_presave(&$edit, $account) {
-  $role = user_role_load_by_name("administrator");
-  //user_multiple_role_edit(array($account->uid), 'add_role', $role->rid);
-  $account->roles = array($role->rid => $role->name);
-  variable_set('openberkeley_cas_admin', TRUE);
+  return $form;
 }
 
 /**
@@ -132,7 +120,36 @@ function openberkeley_add_admin_form_submit($form, &$form_state) {
         continue;
       }
       $fs['values']['cas_name'] = trim($uid);
-      cas_add_user_form_submit($form, $fs);
+
+      // begin: adapted from cas.user.inc
+      $options = array(
+        'invoke_cas_user_presave' => TRUE,
+        'admin' => TRUE,
+      );
+
+      $account = cas_user_register($fs['values']['cas_name'], $options);
+
+      // Terminate if an error occurred while registering the user.
+      if (!$account) {
+        drupal_set_message(t("Error saving user account."), 'error');
+        $fs['redirect'] = '';
+        return;
+      }
+
+      // Make the user an administrator
+      $role = user_role_load_by_name("administrator");
+      //user_multiple_role_edit(array($account->uid), 'add_role', $role->rid);
+      $edit['roles'] = array($role->rid => $role->name);
+      user_save($account, $edit);
+      variable_set('openberkeley_cas_admin', TRUE);
+
+      // Set these in case another module needs the values.
+      $fs['user'] = $account;
+      $fs['values']['uid'] = $account->uid;
+
+      $uri = entity_uri('user', $account);
+      drupal_set_message(t('Created a new administrator account for <a href="@url">%name</a>. No e-mail has been sent.', array('@url' => url($uri['path'], $uri['options']), '%name' => $account->name)));
+     // end: adapted from cas.user.inc
     }
 
   }
