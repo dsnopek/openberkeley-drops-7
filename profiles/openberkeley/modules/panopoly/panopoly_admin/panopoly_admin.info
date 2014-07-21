@@ -39,9 +39,9 @@ features[variable][] = jquery_update_jquery_version
 features[variable][] = user_admin_role
 
 
-; Information added by drush on 2014-07-10
-version = "7.x-1.6+2-dev"
+; Information added by drush on 2014-07-21
+version = "7.x-1.7+2-dev"
 core = "7.x"
 project = "panopoly_admin"
-datestamp = "1405014833"
+datestamp = "1405963348"
 

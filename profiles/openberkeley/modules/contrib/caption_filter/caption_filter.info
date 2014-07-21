@@ -4,9 +4,9 @@ core = 7.x
 package = Input filters
 
 
-; Information added by drush on 2014-07-10
+; Information added by drush on 2014-07-21
 version = "7.x-1.2+9-dev"
 core = "7.x"
 project = "caption_filter"
-datestamp = "1405014849"
+datestamp = "1405963330"
 
