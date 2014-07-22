@@ -41,7 +41,7 @@ function config_perms_admin_form($form, &$form_state, $type = '') {
     $form['perms']['local'][$key] = array('#tree' => TRUE);
     $form['perms']['local'][$key]['pid'] = array(
       '#type' => 'hidden',
-      '#default_value' => check_plain($perm->pid),
+      '#default_value' => isset($perm->pid) ? check_plain($perm->pid) : NULL,
     );
     $form['perms']['local'][$key]['machine_name'] = array(
       '#type' => 'hidden',
