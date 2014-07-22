@@ -22,6 +22,11 @@ projects[ucb_openberkeley][download][url] = git://github.com/ucb-ist-drupal/ucb_
 ; head ;projects[ucb_openberkeley][download][tag] =
 ; master ;projects[ucb_openberkeley][download][branch] = 7.x-1.x
 
+projects[openberkeley_base][type] = module
+projects[openberkeley_base][subdir] = openberkeley
+projects[openberkeley_base][download][type] = git
+projects[openberkeley_base][download][url] = git://github.com/ucb-ist-drupal/openberkeley_base.git
+
 projects[openberkeley_update][type] = module
 projects[openberkeley_update][subdir] = openberkeley
 projects[openberkeley_update][download][type] = git
