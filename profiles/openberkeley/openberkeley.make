@@ -70,6 +70,7 @@ projects[config_perms][patch][1217478] = https://drupal.org/files/issues/0001-Fi
 projects[config_perms][patch][1441692] = https://drupal.org/files/non-property-fix_1441692.patch
 projects[config_perms][patch][1229198] = https://drupal.org/files/config_perms-invalid_argument_foreach-1229198-5.patch
 projects[config_perms][patch][2200925] = https://drupal.org/files/issues/config_perms-invalid_argument_foreach_cache_clear-2200925-1.patch
+projects[config_perms][patch][2307543] = https://drupal.org/files/issues/config_perms-php-notice-2307543-1.patch
 
 ; Diff - Used to display diffs in revisions
 projects[diff][version] = 3.2
