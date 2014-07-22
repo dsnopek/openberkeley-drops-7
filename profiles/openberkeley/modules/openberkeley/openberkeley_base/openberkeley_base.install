@@ -1,0 +1,74 @@
+<?php
+/**
+ * @file
+ * Install hooks for the Open Berkeley Base Feature.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function openberkeley_base_install() {
+  // Make sure our *_alter() hooks run after the Panopoly versions, in cases
+  // where Panopoly already used hook_module_implements_alter() to put itself
+  // at the end.
+  db_update('system')
+    ->fields(array('weight' => 50))
+    ->condition('type', 'module')
+    ->condition('name', 'openberkeley_base')
+    ->execute();
+
+  // Fill the quicklinks region with default blocks.
+  $default_theme = 'berkeley';
+  $blocks = array(
+    array(
+      'module' => 'menu',
+      'delta' => 'menu-quick-links-menu',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => -19,
+      'region' => 'quick_links',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'menu',
+      'delta' => 'devel',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => -18,
+      'region' => 'quick_links',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'system',
+      'delta' => 'user-menu',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => -17,
+      'region' => 'quick_links',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'devel',
+      'delta' => 'switch_user',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => -16,
+      'region' => 'quick_links',
+      'pages' => '',
+      'cache' => -1,
+    ),
+  );
+  foreach ($blocks as $block) {
+    $query = db_merge('block')
+      ->key(array(
+        'module' => $block['module'],
+        'delta' => $block['delta'],
+        'theme' => $block['theme'],
+      ))
+      ->fields($block)
+      ->execute();
+  }
+}
