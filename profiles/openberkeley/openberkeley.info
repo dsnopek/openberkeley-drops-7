@@ -67,6 +67,7 @@ dependencies[] = ucberkeley_envconf
 dependencies[] = ucberkeley_cas
 dependencies[] = ucb_openberkeley
 dependencies[] = openberkeley_base
+dependencies[] = openberkeley_pages
 dependencies[] = openberkeley_update
 dependencies[] = openberkeley_wysiwyg_override
 
