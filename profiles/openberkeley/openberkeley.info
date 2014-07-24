@@ -83,7 +83,6 @@ dependencies[] = diff
 dependencies[] = email
 dependencies[] = entity_view_mode
 dependencies[] = extlink
-dependencies[] = faq
 dependencies[] = features_override
 dependencies[] = googleanalytics
 dependencies[] = linkchecker
