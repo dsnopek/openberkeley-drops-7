@@ -28,9 +28,9 @@ features[image][] = panopoly_image_thumbnail
 features[image][] = panopoly_image_video
 
 
-; Information added by drush on 2014-07-10
-version = "7.x-1.6+2-dev"
+; Information added by drush on 2014-07-21
+version = "7.x-1.7+2-dev"
 core = "7.x"
 project = "panopoly_images"
-datestamp = "1405014821"
+datestamp = "1405963412"
 
