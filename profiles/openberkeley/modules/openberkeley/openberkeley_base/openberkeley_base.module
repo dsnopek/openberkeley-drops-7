@@ -1,0 +1,104 @@
+<?php
+/**
+ * @file
+ * Code for the Open Berkeley Base feature.
+ */
+
+include_once 'openberkeley_base.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function openberkeley_base_menu() {
+  $items = array();
+  $items['openberkeley_base/ajax/find_node_by_title'] = array(
+    'title' => 'Find node by title',
+    'page callback' => 'openberkeley_base_ajax_find_node_by_title',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openberkeley_base_form_fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form_alter(&$form, &$form_state) {
+  // Add a 'View revisions' link to existing 'Text' widgets.
+  if (isset($form['#entity_type']) && $form['#entity_type'] == 'fieldable_panels_pane' && $form['#bundle'] == 'text') {
+    $entity = $form['#entity'];
+    if (empty($entity->is_new)) {
+      $revision_link = 'admin/structure/fieldable-panels-panes/view/' . $entity->fpid . '/revision';
+      $menu_item = menu_get_item($revision_link);
+      if ($menu_item && $menu_item['access']) {
+        $form['openberkeley_revision_link']['#markup'] = l(t('View revisions'), $revision_link);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openberkeley_base_form_views_content_views_panes_content_type_edit_form_alter(&$form, &$form_state) {
+  $view = $form_state['view'];
+  $conf = $form_state['conf'];
+
+  if ($view->name == 'panopoly_widgets_general_content' && $view->current_display == 'piece_of_content') {
+    // Default to showing 'Content' rather than 'Fields' (and hide the control to change it).
+    $form['display_settings']['view_settings']['#default_value'] = 'nodes';
+    $form['display_settings']['#access'] = FALSE;
+    
+    // Default to showing 'Full content' rather than 'Teaser'.
+    $form['content_settings']['view_mode']['#default_value'] = !empty($conf['view_mode']) ? $conf['view_mode'] : 'full';
+
+    // Hide the 'Fields Settings' altogether.
+    $form['fields_override']['#access'] = FALSE;
+
+    // Allow the Javascript to learn which View this is.
+    $form['_view_name'] = array(
+      '#type' => 'hidden',
+      '#value' => $view->name . '-' . $view->current_display,
+    );
+
+    // Add some Javascript to add a node link when the user fills in a valid
+    // title of a node.
+    $form['#attached']['js'][] = drupal_get_path('module', 'openberkeley_base') . '/js/openberkeley-base-content-item-widget.js';
+  }
+}
+
+/**
+ * Implements hook_module_implements_alter()
+ */
+function openberkeley_base_module_implements_alter(&$implementations, $hook) {
+  // Try and make sure that openberkely_base's form_alter runs absolutely last.
+  if ($hook == 'form_alter' && isset($implementations['openberkeley_base'])) {
+    $group = $implementations['openberkeley_base'];
+    unset($implementations['openberkeley_base']);
+    $implementations['openberkeley_base'] = $group;
+  }
+}
+
+/**
+ * Page callback to find node by title via AJAX.
+ */
+function openberkeley_base_ajax_find_node_by_title($title = '') {
+  $node_info = array(); 
+
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('n.title', '%' . db_like($title) . '%', 'LIKE')
+    ->condition('n.status', 1)
+    ->addTag('node_access')
+    ->range(0, 1);
+
+  if ($result = $query->execute()->fetchObject()) {
+    $node_info = array(
+      'nid' => $result->nid,
+      'title' => $result->title,
+      'path' => drupal_get_path_alias('node/' . $result->nid),
+    );
+  }
+
+  return drupal_json_output($node_info);
+}

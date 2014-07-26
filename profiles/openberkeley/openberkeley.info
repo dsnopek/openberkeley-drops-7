@@ -32,9 +32,9 @@ dependencies[] = panopoly_users
 ; dependencies[] = panopoly_admin
 
 ; Panopoly Toolset
-dependencies[] = panopoly_pages
 dependencies[] = panopoly_wysiwyg
 ; These commented items might not be used by openberkeley
+; dependencies[] = panopoly_pages
 ; dependencies[] = panopoly_search
 
 ; Panopoly Recommended - Admin & UI
@@ -66,6 +66,8 @@ dependencies[] = admin_menu
 dependencies[] = ucberkeley_envconf
 dependencies[] = ucberkeley_cas
 dependencies[] = ucb_openberkeley
+dependencies[] = openberkeley_base
+dependencies[] = openberkeley_pages
 dependencies[] = openberkeley_update
 dependencies[] = openberkeley_wysiwyg_override
 
