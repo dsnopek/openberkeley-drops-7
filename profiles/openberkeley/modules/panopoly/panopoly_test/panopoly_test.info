@@ -33,9 +33,9 @@ features[variable][] = panelizer_defaults_node_panopoly_test_page
 hidden = 1
 
 
-; Information added by drush on 2014-07-21
-version = "7.x-1.7+2-dev"
+; Information added by drush on 2014-07-29
+version = "7.x-1.8+0-dev"
 core = "7.x"
 project = "panopoly_test"
-datestamp = "1405963312"
+datestamp = "1406644890"
 

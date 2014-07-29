@@ -52,6 +52,19 @@ function media_uninstall() {
   variable_del('media_icon_base_directory');
   variable_del('media_icon_set');
   variable_del('media_show_deprecated_view_modes');
+
+  // Dialog options.
+  variable_del('media_dialogclass');
+  variable_del('media_modal');
+  variable_del('media_draggable');
+  variable_del('media_resizable');
+  variable_del('media_minwidth');
+  variable_del('media_width');
+  variable_del('media_height');
+  variable_del('media_position');
+  variable_del('media_zindex');
+  variable_del('media_backgroundcolor');
+  variable_del('media_opacity');
 }
 
 /**

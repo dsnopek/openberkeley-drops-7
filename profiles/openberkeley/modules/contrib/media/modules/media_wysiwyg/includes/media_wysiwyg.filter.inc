@@ -127,6 +127,14 @@ function media_wysiwyg_token_to_markup($match, $wysiwyg = FALSE) {
       $settings['attributes'] = array_intersect_key($tag_info['attributes'], array_flip($attribute_whitelist));
       $settings['fields'] = $fields;
 
+      // Decode HTML entities when reading attributes from the token, because
+      // we are going to encode them before outputting as HTML.
+      foreach ($settings['attributes'] as $key => $value) {
+        if (is_string($value)) {
+          $settings['attributes'][$key] = html_entity_decode($value);
+        }
+      }
+
       // Many media formatters will want to apply width and height independently
       // of the style attribute or the corresponding HTML attributes, so pull
       // these two out into top-level settings. Different WYSIWYG editors have
@@ -222,6 +230,9 @@ function media_wysiwyg_filter_field_parser($tag_info) {
   $fields = array();
   if (isset($tag_info['fields'])) {
     foreach($tag_info['fields'] as $field_name => $field_value) {
+      // Decode HTML entities in fields because they will be encoded again
+      // when we output the fields for the user to edit.
+      $field_value = html_entity_decode($field_value);
       if (strpos($field_name, 'field_') === 0) {
         $parsed_field = explode('[', str_replace(']', '', $field_name));
         if(isset($parsed_field[2])) {
