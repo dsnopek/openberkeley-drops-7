@@ -158,39 +158,27 @@ function openberkeley_add_admin_form_submit($form, &$form_state) {
 /**
  * Implements hook_form_FORM_ID_alter()
  */
-function openberkeley_form_panopoly_theme_selection_form_alter(&$form, $form_state) {
-
-  // Create a list of theme options, minus the admin and testing themes
-  $themes = array();
-  foreach (system_rebuild_theme_data() as $theme) {
-    if (!in_array($theme->name, array('test_theme', 'update_test_basetheme', 'update_test_subtheme', 'block_test_theme', 'stark', 'seven'))) {
-      if ($theme->name == 'berkeley') {
-        $berkeley = theme('image', array('path' => $theme->info['screenshot'])) . '<strong>' . $theme->info['name'] . '</strong><br><p><em>' . $theme->info['description'] . '</em></p><p class="clearfix"></p>';
-      }
-      else {
-        $themes[$theme->name] = theme('image', array('path' => $theme->info['screenshot'])) . '<strong>' . $theme->info['name'] . '</strong><br><p><em>' . $theme->info['description'] . '</em></p><p class="clearfix"></p>';
-      }
+function openberkeley_form_panopoly_theme_selection_form_alter(&$form, &$form_state) {
+  // Filter out all theme options except for those we explicitly want.
+  $theme_whitelist = array(
+    'responsive_bartik',
+    'berkeley',
+  );
+  $themes =& $form['theme_wrapper']['theme']['#options'];
+  foreach (array_keys($themes) as $name) {
+    if (!in_array($name, $theme_whitelist)) {
+      unset($themes[$name]);
     }
   }
 
   // Berkeley theme comes first!
-  openberkeley_array_unshift_assoc($themes, 'berkeley', $berkeley);
+  $berkeley = $themes['berkeley'];
+  unset($themes['berkeley']);
+  $themes = array('berkeley' => $berkeley) + $themes;
 
-  $form['theme_wrapper']['theme'] = array(
-    '#type' => 'radios',
-    '#options' => $themes,
-    '#default_value' => 'berkeley',
-  );
-
+  // Make Berkeley into the default.
+  $form['theme_wrapper']['theme']['#default_value'] = 'berkeley';
 }
-
-function openberkeley_array_unshift_assoc(&$arr, $key, $val) {
-  $arr = array_reverse($arr, TRUE);
-  $arr[$key] = $val;
-  $arr = array_reverse($arr, TRUE);
-  return $arr;
-}
-
 
 function openberkeley_finished($install_state) {
   global $user;
