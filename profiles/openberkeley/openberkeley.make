@@ -184,7 +184,7 @@ projects[migrate][patch][2224297] = http://drupal.org/files/issues/2224297-desti
 projects[panopoly_core][version] = 1.x-dev
 projects[panopoly_core][subdir] = panopoly
 projects[panopoly_core][download][type] = git
-projects[panopoly_core][download][revision] = 6e36a51
+projects[panopoly_core][download][revision] = 789a2d0
 projects[panopoly_core][download][branch] = 7.x-1.x
 
 projects[panopoly_images][version] = 1.x-dev
@@ -249,6 +249,5 @@ projects[panopoly_test][version] = 1.x-dev
 projects[panopoly_test][subdir] = panopoly
 projects[panopoly_test][type] = module
 projects[panopoly_test][download][type] = git
-projects[panopoly_test][download][revision] = ecfb4c2
+projects[panopoly_test][download][revision] = 24754db
 projects[panopoly_test][download][branch] = 7.x-1.x
-
