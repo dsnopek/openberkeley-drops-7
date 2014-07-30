@@ -3,7 +3,7 @@
 # This command expects to be run within the Open Berkeley profile (./rebuild.sh from profiles/openberkeley)
 # To use this command you must have `drush make` and `git` installed.
 
-if [ -f openberkeley.make ]; then
+if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
   echo '   ____                       ____               __          __'
   echo '  / __ \ ____   ___   ____   / __ ) ___   _____ / /__ ___   / /___   __  __'
   echo ' / / / // __ \ / _ \ / __ \ / __  |/ _ \ / ___// //_// _ \ / // _ \ / / / /'
@@ -11,10 +11,11 @@ if [ -f openberkeley.make ]; then
   echo '\____// .___/ \___//_/ /_//_____/ \___//_/   /_/|_| \___//_/ \___/ \__, /'
   echo '     /_/                                                          /____/'
   echo "\nThis command can be used to rebuild the installation profile in place.\n"
-  echo "  [1] Rebuild profile in place in release mode (latest stable release)"
-  echo "  [2] Clean and rebuild profile in place in release mode (latest stable release)"
-  # echo "  [3] Rebuild profile in place in development mode (latest dev code)"
-  # echo "  [4] Check to see if drush is installed"
+  echo "  [1] Rebuild profile in production mode (openberkeley-prod.make)"
+  echo "  [2] Rebuild profile in development mode (openberkeley-dev.make)"
+  echo "  [3] Clean and rebuild in production mode (openberkeley-prod.make)"
+  echo "  [4] Clean and rebuild in development mode (openberkeley-dev.make)"
+  # echo "  [5] Check to see if drush is installed"
   echo "\nSelection: \c"
   read SELECTION
 
@@ -23,11 +24,16 @@ if [ -f openberkeley.make ]; then
 
   if [ $SELECTION = "1" ]; then
 
-    echo "Building Open Berkeley install profile in release mode..."
-    drush -y -v make --no-core --contrib-destination=. openberkeley.make
+    echo "Building Open Berkeley install profile in production mode..."
+    drush -y -v make --no-core --contrib-destination=. openberkeley-prod.make
 
-  elif [ $SELECTION = "2" ]; then
-    echo "Cleaning and rebuilding Open Berkeley install profile in release mode..."
+  elif [ $SELECTION = "2" ]; then    
+
+    echo "Building Open Berkeley install profile in development mode..."
+    drush -y -v make --no-core --contrib-destination=. openberkeley-dev.make    
+
+  elif [ $SELECTION = "3" ]; then
+    echo "Cleaning and rebuilding Open Berkeley install profile in production mode..."
 
     for dir in "${cleanup_dirs[@]}"
     do
@@ -39,11 +45,26 @@ if [ -f openberkeley.make ]; then
         echo "Either not a directory or not writable: $dir"
       fi
     done
-    drush -y -v make --no-core --contrib-destination=. openberkeley.make
+    drush -y -v make --no-core --contrib-destination=. openberkeley-prod.make
+
+  elif [ $SELECTION = "4" ]; then
+    echo "Cleaning and rebuilding Open Berkeley install profile in production mode..."
+
+    for dir in "${cleanup_dirs[@]}"
+    do
+      if [ -d "$dir" ] && [ -w "$dir" ]; then
+        echo "Removing $dir..."
+        rm -rf $dir/* # pesky dotfiles can thwart us...
+        rmdir $dir
+      else
+        echo "Either not a directory or not writable: $dir"
+      fi
+    done
+    drush -y -v make --no-core --contrib-destination=. openberkeley-dev.make
 
   else
    echo "Invalid selection."
   fi
 else
-  echo 'Could not locate file "openberkeley.make"'
+  echo 'Could not locate file "openberkeley-prod.make" or "openberkeley-dev.make"'
 fi
