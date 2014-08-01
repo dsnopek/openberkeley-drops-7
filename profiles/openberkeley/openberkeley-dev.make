@@ -47,6 +47,21 @@ projects[openberkeley_core_override][subdir] = openberkeley
 projects[openberkeley_core_override][download][type] = git
 projects[openberkeley_core_override][download][url] = git://github.com/ucb-ist-drupal/openberkeley_core_override.git
 
+projects[openberkeley_starter][type] = module
+projects[openberkeley_starter][subdir] = openberkeley
+projects[openberkeley_starter][download][type] = git
+projects[openberkeley_starter][download][url] = git://github.com/ucb-ist-drupal/openberkeley_starter.git
+
+projects[openberkeley_news][type] = module
+projects[openberkeley_news][subdir] = openberkeley
+projects[openberkeley_news][download][type] = git
+projects[openberkeley_news][download][url] = git://github.com/ucb-ist-drupal/openberkeley_news.git
+
+projects[openberkeley_faq][type] = module
+projects[openberkeley_faq][subdir] = openberkeley
+projects[openberkeley_faq][download][type] = git
+projects[openberkeley_faq][download][url] = git://github.com/ucb-ist-drupal/openberkeley_faq.git
+
 ;;;;;;;;;;;;;;;;;
 ;;; UCB Theme ;;;
 ;;;;;;;;;;;;;;;;;
@@ -99,11 +114,12 @@ projects[extlink][version] = 1.13
 projects[extlink][subdir] = contrib
 
 ; FAQ Module 
-projects[faq][version] = 1.0-rc2
-projects[faq][subdir] = contrib
-projects[faq][patch][1828758] = https://drupal.org/files/1828758-1-category-descriptions-dont-respect-text-formats.patch
+; commented out ;TODO: Delete once openberkeley_faq has been tested. 
+; projects[faq][version] = 1.0-rc2
+; projects[faq][subdir] = contrib
+; projects[faq][patch][1828758] = https://drupal.org/files/1828758-1-category-descriptions-dont-respect-text-formats.patch
 ; 1572414: later patch available
-projects[faq][patch][1572414] = https://drupal.org/files/faq-view_question-1572414-2.patch
+; projects[faq][patch][1572414] = https://drupal.org/files/faq-view_question-1572414-2.patch
 
 ; Features Override
 projects[features_override][version] = 2.0-rc1
