@@ -27,15 +27,18 @@ dependencies[] = panopoly_images
 dependencies[] = panopoly_theme
 dependencies[] = panopoly_magic
 dependencies[] = panopoly_widgets
-; These commented items might not be used by openberkeley
+dependencies[] = panopoly_users
+; Not be used by Open Berkeley:
 ; dependencies[] = panopoly_admin
-; dependencies[] = panopoly_users
 
 ; Panopoly Toolset
-; These commented items might not be used by openberkeley
-; dependencies[] = panopoly_pages
-; dependencies[] = panopoly_search
 dependencies[] = panopoly_wysiwyg
+
+; TBD if used with Open Berkeley
+; dependencies[] = panopoly_search
+
+; Not used by Open Berkeley:
+; dependencies[] = panopoly_pages
 
 ; Panopoly Recommended - Admin & UI
 ; These commented items might not be used by openberkeley
@@ -59,9 +62,11 @@ dependencies[] = apps
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; UCB - Custom
-; These disabled lines will be added to openberkeley when the features are merged to develop branch
+; These disabled lines will be added to openberkeley when the features are merged from the develop branch
 ; dependencies[] = ucberkeley_envconf
 ; dependencies[] = ucberkeley_cas
+
+; To move into openberkeley_admin (can be retired afterward)
 dependencies[] = ucb_openberkeley
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -69,27 +74,31 @@ dependencies[] = ucb_openberkeley
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; ***** OB not in Panopoly *****
-dependencies[] = backup_migrate
 dependencies[] = bundle_copy
 dependencies[] = config_perms
 dependencies[] = diff
 dependencies[] = email
 dependencies[] = entity_view_mode
 dependencies[] = extlink
-dependencies[] = faq
-dependencies[] = googleanalytics
-dependencies[] = linkchecker
-dependencies[] = navigation404
 dependencies[] = nice_menus
 dependencies[] = pathologic
 dependencies[] = redirect
-; These disabled lines will be added to openberkeley when the features are merged to develop branch
-; dependencies[] = smtp
+
+;TODO: Remove the below modules once openberkeley_admin has been incorporated:
+dependencies[] = backup_migrate
 dependencies[] = total_control
+dependencies[] = googleanalytics
+dependencies[] = linkchecker
+dependencies[] = navigation404
+
+;TODO: Remove the below modules once openberkeley_faq has been incorporated:
+dependencies[] = faq
+
+; TODO: May be removed when openberkeley features are merged to develop branch
+; dependencies[] = smtp
 
 ; UCB - Recommended (not enabled by default)
 ; dependencies[] = security_review
-
 
 ; ***** Contrib Modules from Panopoly *****
 ; See https://wikihub.berkeley.edu/display/drupal/Panopoly+Features
