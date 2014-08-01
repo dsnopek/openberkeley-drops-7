@@ -25,12 +25,12 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
   if [ $SELECTION = "1" ]; then
 
     echo "Building Open Berkeley install profile in production mode..."
-    drush -y -v make --no-core --contrib-destination=. openberkeley-prod.make
+    drush -y make --no-core --contrib-destination=. openberkeley-prod.make
 
   elif [ $SELECTION = "2" ]; then    
 
     echo "Building Open Berkeley install profile in development mode..."
-    drush -y -v make --no-core --contrib-destination=. openberkeley-dev.make    
+    drush -y make --no-core --contrib-destination=. openberkeley-dev.make    
 
   elif [ $SELECTION = "3" ]; then
     echo "Cleaning and rebuilding Open Berkeley install profile in production mode..."
@@ -45,10 +45,10 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
         echo "Either not a directory or not writable: $dir"
       fi
     done
-    drush -y -v make --no-core --contrib-destination=. openberkeley-prod.make
+    drush -y make --no-core --contrib-destination=. openberkeley-prod.make
 
   elif [ $SELECTION = "4" ]; then
-    echo "Cleaning and rebuilding Open Berkeley install profile in production mode..."
+    echo "Cleaning and rebuilding Open Berkeley install profile in development mode..."
 
     for dir in "${cleanup_dirs[@]}"
     do
@@ -60,7 +60,7 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
         echo "Either not a directory or not writable: $dir"
       fi
     done
-    drush -y -v make --no-core --contrib-destination=. openberkeley-dev.make
+    drush -y make --no-core --contrib-destination=. openberkeley-dev.make
 
   else
    echo "Invalid selection."
