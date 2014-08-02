@@ -13,8 +13,9 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
   echo "\nThis command can be used to rebuild the installation profile in place.\n"
   echo "  [1] Rebuild profile in production mode (openberkeley-prod.make)"
   echo "  [2] Rebuild profile in development mode (openberkeley-dev.make)"
-  echo "  [3] Clean and rebuild in production mode (openberkeley-prod.make)"
-  echo "  [4] Clean and rebuild in development mode (openberkeley-dev.make)"
+  echo "  [3] Clean and rebuild in development mode (openberkeley-dev.make)"
+  # Note: We do NOT want to clean and rebuild production until it uses openberkeley features bc it will remove ucb_cas and subdirectories
+  # echo "  [4] Clean and rebuild in production mode (openberkeley-prod.make)"
   # echo "  [5] Check to see if drush is installed"
   echo "\nSelection: \c"
   read SELECTION
@@ -33,21 +34,6 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
     drush -y make --no-core --contrib-destination=. openberkeley-dev.make    
 
   elif [ $SELECTION = "3" ]; then
-    echo "Cleaning and rebuilding Open Berkeley install profile in production mode..."
-
-    for dir in "${cleanup_dirs[@]}"
-    do
-      if [ -d "$dir" ] && [ -w "$dir" ]; then
-        echo "Removing $dir..."
-        rm -rf $dir/* # pesky dotfiles can thwart us...
-        rmdir $dir
-      else
-        echo "Either not a directory or not writable: $dir"
-      fi
-    done
-    drush -y make --no-core --contrib-destination=. openberkeley-prod.make
-
-  elif [ $SELECTION = "4" ]; then
     echo "Cleaning and rebuilding Open Berkeley install profile in development mode..."
 
     for dir in "${cleanup_dirs[@]}"
