@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * Implements hook_install()
+ */
+function openberkeley_news_install() {
+  // enable starter content by default
+  variable_set('openberkeley_news_use_starter_content', 1);
+}
+
+
+
+/**
+ * Implements hook_enable().
+ */
+function openberkeley_news_enable() {
+  /*
+   * Our goal here is to enable openberkeley_news_starter by default when
+   * openberkeley_news is enabled. We can't just use
+   *   module_enable('openberkeley_news_starter')
+   * here because _news_starter creates a menu using the path that _news defines
+   * in its News Archive view. At this point (hook_enable) that path doesn't yet
+   * exist.  Features should have created the view by now, but maybe the menu
+   * system cache has not been cleared. So creating the menu fails.
+   *
+   * Tried using hook_modules_enabled() here (see the example in comment.module)
+   * but that also fails.
+   *
+   * The view imported by openberkeley_news could create the menu, but we want
+   * users to be able to modify/delete this menu without causing the Open
+   * Berkeley News Feature to become overridden.
+   *
+   * All this is why we are resorting to the positively un-Drupal-y strategy of
+   * using register_shutdown_function.
+   */
+  register_shutdown_function('openberkeley_news_install_shutdown');
+}
+
+/**
+ * Implements hook_disable().
+ */
+function openberkeley_news_disable() {
+/*
+ * openberkeley_news_starter defines a dependency on this module in
+ * openberkeley_news_starter.info. Therefore
+ *  module_disable(array('openberkeley_news_starter'));
+ * is not required here. In fact explictly disabling that module here results
+ * in an error related to the migrate module.
+ */
+}
+
+/**
+ * Implements hook_uninstall
+ */
+function openberkeley_news_uninstall() {
+  variable_del('openberkeley_news_use_starter_content');
+}
+
+function openberkeley_news_install_shutdown() {
+  module_enable(array('openberkeley_news_starter'));
+}

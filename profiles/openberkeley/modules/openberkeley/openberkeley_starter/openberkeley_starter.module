@@ -1,0 +1,56 @@
+<?php
+/**
+ * @file
+ * Code for the OpenBerkeley Demo feature.
+ */
+
+include_once 'openberkeley_starter.features.inc';
+
+/**
+ * Implements hook_migrate_api().
+ */
+function openberkeley_starter_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'migrations' => array(
+      'OpenBerkeleyStarterNodePages' => array('class_name' => 'OpenBerkeleyStarterNodePages'),
+      'OpenBerkeleyStarterMenu' => array('class_name' => 'OpenBerkeleyStarterMenu'),
+      'OpenBerkeleyStarterBlocks' => array('class_name' => 'OpenBerkeleyStarterBlocks'),
+    ),
+  );
+  return $api;
+}
+
+/**
+ * Find a page that was imported.
+ *
+ * @param string $title
+ *   The title of the page.
+ *
+ * @return int
+ *   The NID of page if found; otherwise NULL.
+ */
+function openberkeley_starter_find_page($title) {
+  $migration = new OpenBerkeleyStarterNodePages();
+  $result = $migration->getMap()->lookupDestinationID(array($title));
+  if (!empty($result['destid1'])) {
+    return $result['destid1'];
+  }
+}
+
+/**
+ * Find a block that was imported.
+ *
+ * @param string $title
+ *   The title of the block.
+ *
+ * @return int
+ *   The BID of block if found; otherwise NULL.
+ */
+function openberkeley_starter_find_block($title) {
+  $migration = new OpenBerkeleyStarterBlocks();
+  $result = $migration->getMap()->lookupDestinationID(array($title));
+  if (!empty($result['destid1'])) {
+    return $result['destid1'];
+  }
+}

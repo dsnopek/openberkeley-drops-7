@@ -1,0 +1,27 @@
+.faq-content{border:1px solid #d4d4d4;margin:20px 0px 0px 0px;padding:8px 14px 10px;background:#fff url("../../images/ltgrey_gradient_1x300.png") repeat-x left top}
+
+.faq-content a:link,.faq-content a:visited{color:#0066a0;text-decoration:underline}
+
+.faq-content .faq-category-menu{border-top:1px solid #ccc}
+
+.faq-content .field-name-field-category{display:none}
+
+.faq-content .faq-ul-questions-top li a{color:#003461;text-decoration:underline}
+
+.faq-content .faq-question{font-weight:bold;font-size:1.2em;border-top:1px solid #ccc}
+
+.faq-content .faq-answer ul.links li a{font-size:.85em;color:#003461;text-decoration:none}
+
+.faq>div:first-of-type{border-top:none}.faq>div:first-of-type>div:nth-child(2)>div:first-of-type>div:nth-child(2){border-top:none}
+
+.faq-question-answer .faq-question{font-weight:normal;border-top:1px dotted #ccc;padding:5px}
+
+.faq-question-answer .faq-question a:link,.faq-question-answer .faq-question a:visited{color:#333;text-decoration:none}
+
+.faq-question-answer:first-of-type{padding-top:10px}
+
+.faq-footer{display:block;border-top:1px dotted #ccc;margin-top:10px;font-size:.875em}
+
+.faq-body p:first-of-type{margin:0;display:inline}
+
+.faq-body ul{margin:0}
