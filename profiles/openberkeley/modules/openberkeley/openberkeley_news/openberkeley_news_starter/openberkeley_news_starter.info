@@ -1,0 +1,13 @@
+name = OpenBerkeley News Starter Content
+description = Starter content for Open Berkeley News feature
+core = 7.x
+package = Open Berkeley
+version = 7.x-0.1-beta1
+project = openberkeley_news
+dependencies[] = menu
+dependencies[] = migrate
+dependencies[] = openberkeley_news
+files[] = import/openberkeley_news_starter.pages.inc
+files[] = import/openberkeley_news_starter.menu.inc
+files[] = import/openberkeley_news_starter.blocks.inc
+

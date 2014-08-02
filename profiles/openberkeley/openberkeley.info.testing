@@ -1,3 +1,5 @@
+; Remove this on 0.1 release
+
 name = Open Berkeley
 distribution_name = Open Berkeley
 description = A general purpose distribution for UC Berkeley based on Panopoly
