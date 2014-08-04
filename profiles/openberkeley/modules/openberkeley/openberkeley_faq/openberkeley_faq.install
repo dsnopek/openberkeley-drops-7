@@ -1,0 +1,30 @@
+<?php
+function openberkeley_faq_install() {
+  // enable starter content by default
+  variable_set('openberkeley_faq_use_starter_content', 1);
+}
+
+/**
+ * Implementation of hook_enable
+ */
+function openberkeley_faq_enable() {
+  $vocab = taxonomy_vocabulary_machine_name_load('faqs');
+  $terms = taxonomy_get_tree($vocab->vid,0,1,false);
+  if (isset($vocab->vid) && count($terms) == 0) {
+  	$term = new stdClass();
+    $term->name = 'General';
+    $term->vid = $vocab->vid;
+    $term->description = 'General FAQs';
+    taxonomy_term_save($term);
+  }
+  register_shutdown_function('openberkeley_faq_install_shutdown');
+}
+/**
+ * Implements hook_uninstall
+ */
+function openberkeley_faq_uninstall() {
+  variable_del('openberkeley_faq_use_starter_content');
+}
+function openberkeley_faq_install_shutdown() {
+  module_enable(array('openberkeley_faq_starter'));
+}

@@ -37,7 +37,12 @@
         }
 
         // Hide it since we know it's not longer current.
-        nodeLink.hide();
+        //
+        // Note: We can't use nodeLink.hide(), because that will cause the link
+        // to lose focus, which it'll have if the user pressed TAB in the
+        // autocomplete. If focus is lost, it returns to the top of the page
+        // underneath the dialog!
+        nodeLink.text('');
 
         // Abort the current request if we're starting a new one.
         if (xhr && xhr.readystate != 4) {

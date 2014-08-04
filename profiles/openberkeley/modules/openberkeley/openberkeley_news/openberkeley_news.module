@@ -1,0 +1,57 @@
+<?php
+/**
+ * @file
+ * Code for the OpenBerkeley News feature.
+ */
+
+include_once 'openberkeley_news.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+
+function openberkeley_news_menu() {
+
+  $items = array();
+
+  /*
+   * The base Open Berkeley menu item admin/config/openberkeley is defined by
+   * openberkeley_admin
+   */
+
+  $openberkeley_base_path = 'admin/config/openberkeley';
+  $news_path = $openberkeley_base_path . '/news';
+
+  if (!module_exists('openberkeley_admin')) {
+    /*
+     * openberkeley_admin provides this menu item, but if this feature is
+     * enabled on a non-openberkeley site (with out openberkeley_admin),
+     * create this parent menu
+     */
+    $items[$openberkeley_base_path] = array(
+      'title' => 'Open Berkeley',
+      'description' => 'Configure Open Berkeley settings.',
+      'position' => 'left',
+      'weight' => -20,
+      'page callback' => 'system_admin_menu_block_page',
+      'access callback' => TRUE,
+      'access arguments' => array('access administration pages'),
+      'file' => 'system.admin.inc',
+      'file path' => drupal_get_path('module', 'system'),
+    );
+  }
+
+  $items[$news_path] = array(
+    'title' => 'News settings',
+    'description' => 'Configure News options',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('openberkeley_news_admin_form'),
+    'access callback' => TRUE,
+    'access arguments' => array('edit any news_item content'),
+    'file' => 'openberkeley_news.admin.inc',
+  );
+
+  return $items;
+}
+
+

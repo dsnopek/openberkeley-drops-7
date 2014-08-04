@@ -31,7 +31,10 @@ function openberkeley_base_form_fieldable_panels_panes_fieldable_panels_pane_con
       $revision_link = 'admin/structure/fieldable-panels-panes/view/' . $entity->fpid . '/revision';
       $menu_item = menu_get_item($revision_link);
       if ($menu_item && $menu_item['access']) {
-        $form['openberkeley_revision_link']['#markup'] = l(t('View revisions'), $revision_link);
+        $form['field_basic_text_text']['openberkeley_revision_link'] = array(
+          '#markup' => l(t('View revisions'), $revision_link),
+          '#weight' => -50,
+        );
       }
     }
   }

@@ -1,0 +1,42 @@
+<?php
+/**
+ * @file
+ * Install hooks for openberkeley_faq_starter.
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function openberkeley_faq_starter_enable() {
+  _panopoly_core_import_demo_content(array(
+    /*
+     * The below order is important because of dependencies
+     */
+    'OpenBerkeleyFaqStarterNodePages',
+    'OpenBerkeleyFaqStarterMenu',
+  ));
+  variable_set('openberkeley_faq_use_starter_content', 1);
+}
+
+/**
+ * Implements hook_disable().
+ */
+function openberkeley_faq_starter_disable() {
+  _panopoly_core_rollback_demo_content(array(
+    /*
+     * It's important to disable in this order because: Menu depends on Pages.
+     * If do things out of order one or more rollbacks
+     * will silently fail on disable. If you use drush migrate-rollback commands
+     * you'll see "skipping migration...due to unfulfilled dependencies"
+     */
+    'OpenBerkeleyFaqStarterMenu',
+    'OpenBerkeleyFaqStarterNodePages',
+  ));
+  variable_set('openberkeley_faq_use_starter_content', 0);
+}
+
+/**
+ * Enable default blocks in our default theme.
+ *
+ * @see openberkeley_starter.install
+ */
