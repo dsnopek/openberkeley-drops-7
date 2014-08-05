@@ -22,8 +22,8 @@ Feature: Add content page
 
   @api @javascript @panopoly_pages
   Scenario: Add a Featured Image with incorrect dimensions
-    When I attach the file "panopoly.png" to "files[field_featured_image_und_0]"
-    Then I should see "The specified file panopoly.png could not be uploaded. The image is too small; the minimum dimensions are 300x200 pixels."
+    When I attach the file "test-sm.png" to "files[field_featured_image_und_0]"
+    Then I should see "The specified file test-sm.png could not be uploaded. The image is too small; the minimum dimensions are 300x200 pixels."
 
   @api @javascript @panopoly_pages
   Scenario: Add a Featured image
@@ -33,8 +33,8 @@ Feature: Add content page
       | Title               | Testing title |
       | Editor              | plain_text    |
       | body[und][0][value] | Testing body  |
-      And I attach the file "screenshot.png" to "files[field_featured_image_und_0]"
-    Then I should not see "The specified file panopoly.png could not be uploaded. The image is too small; the minimum dimensions are 300x200 pixels."
+      And I attach the file "test-lg.png" to "files[field_featured_image_und_0]"
+    Then I should not see "The specified file test-lg.png could not be uploaded. The image is too small; the minimum dimensions are 300x200 pixels."
     When I fill in "Alt Text" with "Panopoly rocks"
       #And I press "Publish"
       And I press "edit-submit"

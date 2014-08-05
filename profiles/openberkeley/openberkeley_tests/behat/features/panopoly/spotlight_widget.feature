@@ -18,7 +18,7 @@ Feature: Add spotlight widget
       | field_basic_spotlight_items[und][0][title] | Testing item title  |
       | Link                                       | http://drupal.org   |
       | Description                                | Testing description |
-      And I attach the file "panopoly.png" to "files[field_basic_spotlight_items_und_0_fid]"
+      And I attach the file "test-sm.png" to "files[field_basic_spotlight_items_und_0_fid]"
       And I press the "Upload" button
     #Then I should see the "Crop" button in the "CTools modal" region
     When I press "Save" in the "CTools modal" region
