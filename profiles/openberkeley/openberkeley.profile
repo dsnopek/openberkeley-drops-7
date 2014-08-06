@@ -191,6 +191,13 @@ function openberkeley_finished($install_state) {
   $role = user_role_load_by_name("administrator");
   $permissions = array_keys(module_invoke_all('permission'));
   user_role_grant_permissions($role->rid, $permissions);
+  // set the site variable
+  variable_set('user_admin_role', $role->rid);
+
+  // Assign user 1 the "administrator" role.
+  db_insert('users_roles')
+    ->fields(array('uid' => 1, 'rid' => $role->rid))
+    ->execute();
 
   // If appropriate link user to /cas to login as their cas-authed admin user
   if (variable_get('openberkeley_cas_admin', FALSE)) {
