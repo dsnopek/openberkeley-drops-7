@@ -10,7 +10,6 @@ dependencies[] = list
 dependencies[] = node
 dependencies[] = options
 dependencies[] = panopoly_core
-dependencies[] = panopoly_pages
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = text
