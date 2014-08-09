@@ -16,7 +16,7 @@ Feature: Add image widget
       | Title   | Testing image widget title |
       | Editor  | plain_text                 |
       | Caption | Testing caption            |
-      And I attach the file "panopoly.png" to "files[field_basic_image_image_und_0]"
+      And I attach the file "test-sm.png" to "files[field_basic_image_image_und_0]"
       And I press "Upload"
       And I fill in "Alternate text" with "Testing alt text"
       And I press "Save" in the "CTools modal" region

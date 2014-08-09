@@ -10,5 +10,5 @@ I want to be able to login without CalNet
 
   @api
   Scenario: User log in via backdoor
-    Given I am logged in as a user with the "builder" role
+    Given I am logged in as a user with the "administrator" role
     Then I should see "Log out"
