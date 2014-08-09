@@ -74,17 +74,12 @@ dependencies[] = openberkeley_wysiwyg_override
 dependencies[] = openberkeley_core_override
 
 ; Open Berkeley Recommended
-
-; Pending (uncomment when feature is ready)
-; dependencies[] = openberkeley_admin
+dependencies[] = openberkeley_admin
 
 ; Optional - may subsequently move to install task
 dependencies[] = openberkeley_starter
 dependencies[] = openberkeley_news
 dependencies[] = openberkeley_faq
-
-; To move into openberkeley_admin (can be retired afterward)
-dependencies[] = ucb_openberkeley
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; UCB Contrib Modules ;;;
@@ -106,7 +101,6 @@ dependencies[] = features_override
 dependencies[] = nice_menus
 dependencies[] = pathologic
 ; dependencies[] = redirect
-; dependencies[] = total_control   ;TODO: Delete once openberkeley_admin has been tested.
 
 ; UCB - Recommended (not enabled by default)
 ; dependencies[] = security_review
