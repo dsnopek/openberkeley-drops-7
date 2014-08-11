@@ -33,7 +33,7 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
     echo "Building Open Berkeley install profile in development mode..."
     drush -y make --no-core --contrib-destination=. openberkeley-dev.make
     cp modules/panopoly/panopoly_test/tests/features/*.feature openberkeley_tests/behat/features/panopoly/
-    cp modules/panopoly/panopoly_test/tests/features/bootstrap/PanopolyContext.php openberkeley_tests/behat/features/bootstrap/ 
+    cp modules/panopoly/panopoly_test/tests/features/bootstrap/PanopolyContext.php openberkeley_tests/behat/features/bootstrap/
     for file in "openberkeley_tests/patches/*.patch"
     do
       patch -p3 < "$file"
@@ -54,7 +54,7 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
     done
     drush -y make --no-core --contrib-destination=. openberkeley-dev.make
     cp modules/panopoly/panopoly_test/tests/features/*.feature openberkeley_tests/behat/features/panopoly/
-    cp modules/panopoly/panopoly_test/tests/features/bootstrap/PanopolyContext.php openberkeley_tests/behat/features/bootstrap/    
+    cp modules/panopoly/panopoly_test/tests/features/bootstrap/PanopolyContext.php openberkeley_tests/behat/features/bootstrap/   
     for file in "openberkeley_tests/patches/*.patch"
     do
       patch -p3 < "$file"
