@@ -1,0 +1,5 @@
+Title,Body
+"Footer address","<p>[Department Name]<br>[Department Address]<br>Berkeley, CA [Zip Code]</p>"
+"Phone and email","<p>Email: <a href="#">example@example.edu</a><br> Phone: (510) 642-0000<br> Fax: (510) 643-0000</p>"
+"Department links","<p>Department Link 1 <br> Department Link 2 <br> Department Link 3 <br> Department Link 4</p>"
+"Campus links","<p><a href="http://www.berkeley.edu">Berkeley Main Page</a><br> <a href="http://www.berkeley.edu/admin/org.shtml">Campus Administration</a><br> <a href="http://newscenter.berkeley.edu">NewsCenter</a><br> <a href="http://campaign.berkeley.edu">The Campaign for Berkeley</a><br> <a href="http://www.berkeley.edu/visit/">Visiting Berkeley</a><br> <a href="http://events.berkeley.edu">Campus Events</a></p>"

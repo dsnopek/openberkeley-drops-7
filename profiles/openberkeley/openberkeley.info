@@ -28,18 +28,22 @@ dependencies[] = panopoly_theme
 dependencies[] = panopoly_magic
 dependencies[] = panopoly_widgets
 dependencies[] = panopoly_users
-; These commented items might not be used by openberkeley
+; Not be used by Open Berkeley:
 ; dependencies[] = panopoly_admin
 
 ; Panopoly Toolset
 dependencies[] = panopoly_wysiwyg
-; These commented items might not be used by openberkeley
-; dependencies[] = panopoly_pages
+
+; TBD if used with Open Berkeley
 ; dependencies[] = panopoly_search
 
+; Not used by Open Berkeley:
+; dependencies[] = panopoly_pages
+
 ; Panopoly Recommended - Admin & UI
-; These commented items might not be used by openberkeley
+; These commented items are not used by Open Berkeley
 ; dependencies[] = navbar
+; dependencies[] = admin_menu  
 dependencies[] = breakpoints
 dependencies[] = backports
 dependencies[] = simplified_menu_admin
@@ -54,45 +58,49 @@ dependencies[] = uuid
 dependencies[] = defaultcontent
 dependencies[] = apps
 
-; Panopoly - Included in makefile but not enabled by default
-dependencies[] = admin_menu
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; UCB Custom Modules ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; UCB - Custom
-; These disabled lines will be added to openberkeley when the features are merged to develop branch
 dependencies[] = ucberkeley_envconf
 dependencies[] = ucberkeley_cas
-dependencies[] = ucb_openberkeley
+
+; Open Berkeley Foundation
 dependencies[] = openberkeley_base
 dependencies[] = openberkeley_pages
 dependencies[] = openberkeley_update
 dependencies[] = openberkeley_wysiwyg_override
+dependencies[] = openberkeley_core_override
+
+; Open Berkeley Recommended
+dependencies[] = openberkeley_admin
+
+; Optional - may subsequently move to install task
+dependencies[] = openberkeley_starter
+dependencies[] = openberkeley_news
+dependencies[] = openberkeley_faq
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; UCB Contrib Modules ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; ***** OB not in Panopoly *****
-dependencies[] = backup_migrate
+; dependencies[] = backup_migrate   ;TODO: Delete once openberkeley_admin has been tested.
 dependencies[] = bundle_copy
 dependencies[] = config_perms
 dependencies[] = diff
 dependencies[] = email
 dependencies[] = entity_view_mode
 dependencies[] = extlink
+; dependencies[] = faq  ;TODO: Delete once openberkeley_faq has been tested.
 dependencies[] = features_override
-dependencies[] = googleanalytics
-dependencies[] = linkchecker
-dependencies[] = navigation404
+; dependencies[] = googleanalytics  ;TODO: Delete once openberkeley_admin has been tested.
+; dependencies[] = linkchecker  ;TODO: Delete once openberkeley_admin has been tested.
+; dependencies[] = navigation404  ;TODO: Delete once openberkeley_admin has been tested.
 dependencies[] = nice_menus
 dependencies[] = pathologic
-dependencies[] = redirect
-; These disabled lines will be added to openberkeley when the features are merged to develop branch
-; dependencies[] = smtp
-dependencies[] = total_control
+; dependencies[] = redirect
 
 ; UCB - Recommended (not enabled by default)
 ; dependencies[] = security_review

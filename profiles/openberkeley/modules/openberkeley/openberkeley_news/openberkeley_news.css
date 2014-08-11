@@ -1,0 +1,56 @@
+.view-openberkeley-news-archive .view-content .field-content:after {
+  content:".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden
+}
+
+.view-openberkeley-news-archive h3 {
+  font-size:1em;
+  text-transform:none;
+  margin:0.5em 0 0
+}
+
+.view-openberkeley-news-archive .views-row {
+  padding:5px 20px;
+  border-bottom:1px dotted #ccc
+}
+
+.view-openberkeley-news-archive .views-field-field-openberkeley-news-pdate,
+.view-openberkeley-news-archive .views-field-field-source {
+  color:#003461;
+  font-size:0.8em;
+  font-style:italic;
+  float:right
+}
+
+.view-openberkeley-news-archive .views-field-title {
+  padding-top:0px
+}
+
+.view-openberkeley-news-archive .more-link {
+  font-size:.85em;
+  padding-top:5px
+}
+
+.pane-openberkeley-news-archive-panel-pane-1 .view-openberkeley-news-archive .views-row {
+	padding:5px 0
+}
+
+.node-openberkeley-news-item .field-type-datetime {
+  color:#003461;
+  font-size:0.8em;
+  font-style:italic;
+  float:right
+}
+
+.node-openberkeley-news-item .field-name-field-openberkeley-news-byline {
+  float: left;
+  margin-bottom: 0.5em;
+  font-style: italic;
+}
+
+.node-openberkeley-news-item .field-name-body{
+  clear:both
+}

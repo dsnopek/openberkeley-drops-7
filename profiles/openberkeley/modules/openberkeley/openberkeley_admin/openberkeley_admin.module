@@ -1,0 +1,133 @@
+<?php
+/**
+ * @file
+ * Code for the Open Berkeley Admin feature.
+ */
+
+include_once 'openberkeley_admin.features.inc';
+/**
+ * Implements hook_menu().
+ */
+function openberkeley_admin_menu() {
+
+  $items = array();
+
+  $items['admin/config/openberkeley'] = array(
+    'title' => 'Open Berkeley',
+    'description' => 'Configure Open Berkeley settings.',
+    'position' => 'left',
+    'weight' => -20,
+    'page callback' => 'system_admin_menu_block_page',
+    'access callback' => TRUE,
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_form_alter
+ *
+ */
+function openberkeley_admin_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    case "views_form_control_users_page_1":
+      if (!isset($form['add_roles']) || (!isset($form['remove_roles']))) {
+        break;
+      }
+      $admin_rid = variable_get('user_admin_role');
+      $roles = user_roles();
+      $admin_rolename = NULL;
+      if ((!is_array($roles)) || (!array_key_exists($admin_rid, $roles))) {
+        drupal_set_message("Roles may be misconfigured. Possible security implications. Ask your administrator to check on this.", "warning");
+      }
+      else {
+        $admin_rolename = $roles[$admin_rid];
+      }
+
+      while (list($k, $v) = each($form['add_roles']['#options'])) {
+        if ($v == $admin_rolename) {
+          unset($form['add_roles']['#options'][$k]);
+        }
+      }
+      while (list($k, $v) = each($form['remove_roles']['#options'])) {
+        if ($v == $admin_rolename) {
+          unset($form['remove_roles']['#options'][$k]);
+        }
+      }
+      break;
+  }
+}
+
+function openberkeley_admin_block_info() {
+  $blocks['url_administration']['info'] = t('URL Administration');
+  $blocks['other_administration']['info'] = t('Other Administration');
+
+  return $blocks;
+}
+
+function openberkeley_admin_block_view($delta = '') {
+  // The $delta parameter tells us which block is being requested.
+  switch ($delta) {
+    case 'other_administration':
+      $block['subject'] = t('Other Administration');
+      $block['content'] = openberkeley_admin_block_other_administration_content();
+      //$block['content'] = '<b>test content</b>';
+      break;
+    case 'url_administration':
+      $block['subject'] = t('URL Administration');
+      $block['content'] = openberkeley_admin_block_url_administration_content();
+      break;
+  }
+
+  return $block;
+}
+
+function openberkeley_admin_block_url_administration_content() {
+  $content = '<ul>';
+  if (module_exists('pathauto')) {
+    $content .= '<li>' . l("Administer URL Aliases", "admin/config/search/path") . '</li>';
+  }
+  if (module_exists('redirect')) {
+    $content .= '<li>' . l("Administer URL Redirects", "admin/config/search/redirect") . '</li>';
+  }
+  $content .= '</ul>';
+  return $content;
+}
+
+function openberkeley_admin_block_other_administration_content() {
+  global $theme;
+
+  $content = '<ul>';
+  $content .= '<li>' . l(ucfirst($theme) . " Theme Settings", "admin/appearance/settings/$theme") . '</li>';
+  $content .= '<li>' . l("Edit Site Information", "admin/config/system/site-information") . '</li>';
+  // Fetch a list of regions for the current theme.
+  // $all_regions = system_region_list($theme);
+  $footer_regions = array(
+    'footer_first',
+    'footer_second',
+    'footer_third',
+    'footer_fourth',
+  );
+  $blocks_footer = array();
+  //foreach (array_keys($all_regions) as $region) { //looping over this in this context will loop infinitely
+  foreach ($footer_regions as $region) {
+    $blocks_footer[] = block_list($region);
+  }
+  foreach ($blocks_footer as $bf) {
+    foreach ($bf as $bf_block) {
+    $delta = $bf_block->delta;
+    $subject = $bf_block->subject;
+    $content .= '<li>' . l("Edit Footer: $subject", "admin/structure/block/manage/block/$delta/configure?destination=admin/dashboard") . '</li>';
+    }
+  }
+  $content .= '</ul>';
+
+  return $content;
+}
+
+
+
+

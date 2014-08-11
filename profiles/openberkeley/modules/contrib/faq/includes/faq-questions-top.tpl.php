@@ -30,7 +30,7 @@
  *   Represents the number of items.
  */
 ?>
-<a id="top"></a>
+<a id="faq-top"></a>
 <?php print $questions_list ?>
 <br />
 <?php $key = 0; ?>

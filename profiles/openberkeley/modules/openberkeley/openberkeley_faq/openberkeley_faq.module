@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the OpenBerkeley FAQ feature.
+ */
+
+include_once 'openberkeley_faq.features.inc';

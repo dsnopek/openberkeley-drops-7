@@ -1,0 +1,8 @@
+# Mac OSX
+.DS_Store
+
+# Behat and Composer
+bin/
+vendor/
+composer.lock
+behat.yml

@@ -1,0 +1,8 @@
+Menu link ID,Menu name,Path,Title,Parent,Weight
+1,"main-menu","<front>","Home",0,0
+2,"main-menu","menu-item-two","Menu Item Two",0,0
+3,"menu-footer-menu","<front>","Home",0,0
+4,"menu-footer-menu","credits","Credits",0,0
+5,"menu-footer-menu","https://security.berkeley.edu/content/privacy-statement-uc-berkeley-websites","Privacy Statement",0,0
+6,"menu-secondary-menu","<front>","Home",0,0
+7,"menu-secondary-menu","http://www.berkeley.edu","UC Berkeley",0,0

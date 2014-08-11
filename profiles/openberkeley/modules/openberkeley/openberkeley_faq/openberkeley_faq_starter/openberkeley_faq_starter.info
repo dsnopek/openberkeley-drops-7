@@ -1,0 +1,11 @@
+name = OpenBerkeley FAQ Starter Content
+description = Starter content for Open Berkeley FAQ feature
+core = 7.x
+package = Open Berkeley
+version = 7.x-0.1-beta1
+project = openberkeley_faq
+dependencies[] = menu
+dependencies[] = migrate
+dependencies[] = openberkeley_faq
+files[] = import/openberkeley_faq_starter.pages.inc
+files[] = import/openberkeley_faq_starter.menu.inc

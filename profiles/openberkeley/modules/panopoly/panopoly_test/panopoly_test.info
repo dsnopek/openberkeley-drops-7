@@ -10,7 +10,6 @@ dependencies[] = list
 dependencies[] = node
 dependencies[] = options
 dependencies[] = panopoly_core
-dependencies[] = panopoly_pages
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = text
@@ -33,9 +32,9 @@ features[variable][] = panelizer_defaults_node_panopoly_test_page
 hidden = 1
 
 
-; Information added by drush on 2014-07-30
+; Information added by drush on 2014-08-09
 version = "7.x-1.8+1-dev"
 core = "7.x"
 project = "panopoly_test"
-datestamp = "1406726704"
+datestamp = "1407553500"
 
