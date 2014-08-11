@@ -31,7 +31,13 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
   elif [ $SELECTION = "2" ]; then    
 
     echo "Building Open Berkeley install profile in development mode..."
-    drush -y make --no-core --contrib-destination=. openberkeley-dev.make    
+    drush -y make --no-core --contrib-destination=. openberkeley-dev.make
+    cp modules/panopoly/panopoly_test/tests/features/*.feature openberkeley_tests/behat/features/panopoly/
+    cp modules/panopoly/panopoly_test/tests/features/bootstrap/PanopolyContext.php openberkeley_tests/behat/features/bootstrap/ 
+    for file in "openberkeley_tests/patches/*.patch"
+    do
+      patch -p3 < "$file"
+    done
 
   elif [ $SELECTION = "3" ]; then
     echo "Cleaning and rebuilding Open Berkeley install profile in development mode..."
@@ -47,6 +53,12 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
       fi
     done
     drush -y make --no-core --contrib-destination=. openberkeley-dev.make
+    cp modules/panopoly/panopoly_test/tests/features/*.feature openberkeley_tests/behat/features/panopoly/
+    cp modules/panopoly/panopoly_test/tests/features/bootstrap/PanopolyContext.php openberkeley_tests/behat/features/bootstrap/    
+    for file in "openberkeley_tests/patches/*.patch"
+    do
+      patch -p3 < "$file"
+    done
 
   else
    echo "Invalid selection."

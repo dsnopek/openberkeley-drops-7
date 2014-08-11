@@ -20,9 +20,6 @@ Feature: Live preview
     # We need to check the table header case insensitively, because it's not
     # uncommon to make table headers capitalized.
     Then I should see text matching "/c-1-r-1/i" in the "Live preview" region
-    When I fill in "tablefield_0_cell_0_1" with "c-2-r-1"
-      And I wait for live preview to finish
-    Then I should see text matching "/c-2-r-1/i" in the "Live preview" region
     # Test that we can make the title into a link
     Then I should not see the link "Widget title" in the "Live preview" region
     When I check the box "Make title a link"

@@ -1,0 +1,9 @@
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/wysiwyg.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/wysiwyg.feature
+@@ -50,7 +50,6 @@ Feature: Use rich text editor
+ 
+     Examples:
+       | Action          | Element | Property        | Value     |
+-      | Underline       | span    | text-decoration | underline |
+       | Align Full      | p       | text-align      | justify   |
+       | Increase Indent | p       | padding-left    | 30px      |
