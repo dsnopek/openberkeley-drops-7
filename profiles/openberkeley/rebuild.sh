@@ -34,7 +34,8 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
     drush -y make --no-core --contrib-destination=. openberkeley-dev.make
     cp modules/panopoly/panopoly_test/tests/features/*.feature openberkeley_tests/behat/features/panopoly/
     cp modules/panopoly/panopoly_test/tests/features/bootstrap/PanopolyContext.php openberkeley_tests/behat/features/bootstrap/
-    for file in "openberkeley_tests/patches/*.patch"
+    patch_dir=openberkeley_tests/patches
+    for file in "$patch_dir"/*
     do
       patch -p3 < "$file"
     done
@@ -55,7 +56,8 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
     drush -y make --no-core --contrib-destination=. openberkeley-dev.make
     cp modules/panopoly/panopoly_test/tests/features/*.feature openberkeley_tests/behat/features/panopoly/
     cp modules/panopoly/panopoly_test/tests/features/bootstrap/PanopolyContext.php openberkeley_tests/behat/features/bootstrap/
-    for file in "openberkeley_tests/patches/*.patch"
+    patch_dir=openberkeley_tests/patches
+    for file in "$patch_dir"/*
     do
       patch -p3 < "$file"
     done

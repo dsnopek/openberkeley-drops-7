@@ -33,7 +33,6 @@ Feature: Live preview
     Then I should see "Widget title"
       And I should see the link "Widget title"
       And I should see "c-1-r-1"
-      And I should see "c-2-r-1"
 
   @api @javascript @panopoly_magic @panopoly_widgets
   Scenario: Live preview should work with views
