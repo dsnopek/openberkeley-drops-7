@@ -1,0 +1,14 @@
+<?php
+/**
+ * Implementation of hook_enable
+ */
+function openberkeley_admin_enable() {
+  /*
+   * If this feature is being enabled manually (not enabled by a .profile) we
+   * need to clear caches so that the Dashboard/Content/Categories/User Accounts
+   * tabs appear at /admin/dashboard after
+   * openberkeley_admin_views_default_views_alter() runs.
+   */
+  drupal_flush_all_caches();
+}
+
