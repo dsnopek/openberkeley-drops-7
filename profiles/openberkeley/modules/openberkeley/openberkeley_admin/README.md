@@ -27,4 +27,3 @@ provide administrator settings.
 * Fix date format in control_users view
 * Set Builder permissions
 
-
