@@ -11,7 +11,6 @@ dependencies[] = ctools
 dependencies[] = defaultconfig
 dependencies[] = features
 dependencies[] = menu
-dependencies[] = navigation404
 dependencies[] = openberkeley_base
 dependencies[] = pathauto
 dependencies[] = redirect
