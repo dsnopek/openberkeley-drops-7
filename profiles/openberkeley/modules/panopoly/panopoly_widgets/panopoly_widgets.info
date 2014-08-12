@@ -110,9 +110,9 @@ features[file_display][] = video__teaser__media_youtube_video
 features[views_view][] = panopoly_widgets_general_content
 
 
-; Information added by drush on 2014-08-09
+; Information added by drush on 2014-08-12
 version = "7.x-1.8+0-dev"
 core = "7.x"
 project = "panopoly_widgets"
-datestamp = "1407553462"
+datestamp = "1407861659"
 

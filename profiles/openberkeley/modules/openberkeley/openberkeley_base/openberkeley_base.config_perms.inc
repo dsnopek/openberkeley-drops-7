@@ -79,17 +79,6 @@ function openberkeley_base_config_perms() {
   $config_perms = new stdClass();
   $config_perms->disabled = FALSE; /* Edit this to true to make a default config_perms disabled initially */
   $config_perms->api_version = 1;
-  $config_perms->machine_name = 'admin_panopoly_dashboard';
-  $config_perms->status = TRUE;
-  $config_perms->name = 'admin panopoly dashboard';
-  $config_perms->path = array(
-    0 => 'admin/site',
-  );
-  $export['admin_panopoly_dashboard'] = $config_perms;
-
-  $config_perms = new stdClass();
-  $config_perms->disabled = FALSE; /* Edit this to true to make a default config_perms disabled initially */
-  $config_perms->api_version = 1;
   $config_perms->machine_name = 'administer_cas_create';
   $config_perms->status = TRUE;
   $config_perms->name = 'administer cas create';
@@ -164,17 +153,6 @@ function openberkeley_base_config_perms() {
     0 => 'admin/config/file-system',
   );
   $export['administer_file_system'] = $config_perms;
-
-  $config_perms = new stdClass();
-  $config_perms->disabled = FALSE; /* Edit this to true to make a default config_perms disabled initially */
-  $config_perms->api_version = 1;
-  $config_perms->machine_name = 'administer_media';
-  $config_perms->status = TRUE;
-  $config_perms->name = 'administer media';
-  $config_perms->path = array(
-    0 => 'admin/site/media',
-  );
-  $export['administer_media'] = $config_perms;
 
   $config_perms = new stdClass();
   $config_perms->disabled = FALSE; /* Edit this to true to make a default config_perms disabled initially */
