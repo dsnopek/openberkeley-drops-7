@@ -27,8 +27,4 @@ provide administrator settings.
 * Fix date format in control_users view
 * Set Builder permissions
 
-# Notes #
 
-## Enabling this feature on an existing site requires clearing all caches ##
-
-If you let openberkeley.info enable openberkeley\_admin during site installation you will see the "Dashboard, Content, Categories, User Accounts" tabs at admin/dashboard; however, if you try enabling on an existing site where it has never been installed, you will notice that those tabs are missing. If you flush all caches, these tabs will show up.
