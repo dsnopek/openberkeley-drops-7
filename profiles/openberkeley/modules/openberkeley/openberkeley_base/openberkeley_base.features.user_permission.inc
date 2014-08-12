@@ -905,37 +905,6 @@ function openberkeley_base_user_default_permissions() {
     'module' => 'panels',
   );
 
-  // Exported permission: 'use text format editor'.
-  $permissions['use text format editor'] = array(
-    'name' => 'use text format editor',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'builder' => 'builder',
-      'contributor' => 'contributor',
-      'editor' => 'editor',
-    ),
-    'module' => 'filter',
-  );
-
-  // Exported permission: 'use text format panopoly_html_text'.
-  $permissions['use text format panopoly_html_text'] = array(
-    'name' => 'use text format panopoly_html_text',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'filter',
-  );
-
-  // Exported permission: 'use text format panopoly_wysiwyg_text'.
-  $permissions['use text format panopoly_wysiwyg_text'] = array(
-    'name' => 'use text format panopoly_wysiwyg_text',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'builder' => 'builder',
-    ),
-    'module' => 'filter',
-  );
-
   // Exported permission: 'view files'.
   $permissions['view files'] = array(
     'name' => 'view files',
