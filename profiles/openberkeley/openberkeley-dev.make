@@ -128,10 +128,6 @@ projects[features_override][subdir] = contrib
 projects[google_analytics][version] = 1.4
 projects[google_analytics][subdir] = contrib
 
-; Link Checker
-projects[linkchecker][version] = 1.1
-projects[linkchecker][subdir] = contrib
-
 ; Nice Menus - used with Berkeley Theme
 projects[nice_menus][version] = 2.5
 projects[nice_menus][subdir] = contrib
@@ -139,10 +135,6 @@ projects[nice_menus][subdir] = contrib
 ; Pathologic - Used for dev/test/live/localhost paths
 projects[pathologic][version] = 2.11
 projects[pathologic][subdir] = contrib
-
-; Redirect - Combined path redirect and global redirect for D7
-projects[redirect][version] = 1.0-rc1
-projects[redirect][subdir] = contrib
 
 ; Security Review - Part of go-live process
 projects[security_review][version] = 1.0
