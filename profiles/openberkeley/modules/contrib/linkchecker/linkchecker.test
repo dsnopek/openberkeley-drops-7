@@ -381,6 +381,8 @@ EOT;
 
 class LinkCheckerInterfaceTest extends DrupalWebTestCase {
 
+  public $contextPermission = TRUE;
+
   public static function getInfo() {
     return array(
       'name' => t('Link checker interface tests'),
@@ -412,6 +414,8 @@ class LinkCheckerInterfaceTest extends DrupalWebTestCase {
       'create url aliases',
       // Content filter permissions.
       filter_permission_name($full_html_format),
+      // Broken link messages in context permissions.
+      'see contextual messages',
     );
 
     $user = $this->drupalCreateUser($permissions);
@@ -480,14 +484,24 @@ class LinkCheckerInterfaceTest extends DrupalWebTestCase {
     $status = '301';
     $this->setLinkAsBroken($url1, $status, $fail_count);
     $this->drupalGet('node/' . $node->nid . '/edit');
-    $this->assertRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed once found.'));
+    if($this->contextPermission) {
+      $this->assertRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed once found.'));
+    }
+    else {
+      $this->assertNoRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed once text hidden based on permissions.'));
+    }
 
     // Set link as failed multiple times.
     $fail_count = 4;
     $status = '404';
     $this->setLinkAsBroken($url1, $status, $fail_count);
     $this->drupalGet('node/' . $node->nid . '/edit');
-    $this->assertRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed multiple times found.'));
+    if($this->contextPermission) {
+      $this->assertRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed multiple times found.'));
+    }
+    else {
+      $this->assertNoRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed multiple times text hidden based on permissions.'));
+    }
   }
 
   public function testLinkCheckerCreateBlockWithBrokenLinks() {
@@ -530,14 +544,24 @@ class LinkCheckerInterfaceTest extends DrupalWebTestCase {
     $status = '301';
     $this->setLinkAsBroken($url1, $status, $fail_count);
     $this->drupalGet('admin/structure/block/manage/block/' . $bid . '/configure');
-    $this->assertRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed once found.'));
+    if($this->contextPermission) {
+      $this->assertRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed once found.'));
+    }
+    else {
+      $this->assertNoRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed once text hidden based on permissions.'));
+    }
 
     // Set link as failed multiple times.
     $fail_count = 4;
     $status = '404';
     $this->setLinkAsBroken($url1, $status, $fail_count);
     $this->drupalGet('admin/structure/block/manage/block/' . $bid . '/configure');
-    $this->assertRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed multiple times found.'));
+    if($this->contextPermission) {
+      $this->assertRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed multiple times found.'));
+    }
+    else {
+      $this->assertNoRaw(format_plural($fail_count, 'Link check of <a href="@url">@url</a> failed once (status code: @code).', 'Link check of <a href="@url">@url</a> failed @count times (status code: @code).', array('@url' => $url1, '@code' => $status)), t('Link check failed multiple times text hidden based on permissions.'));
+    }
   }
 
   /**
@@ -574,6 +598,52 @@ class LinkCheckerInterfaceTest extends DrupalWebTestCase {
     return db_query('SELECT * FROM {linkchecker_link} WHERE urlhash = :urlhash', array(':urlhash' => drupal_hash_base64($url)))->fetchObject();
   }
 }
+
+
+class LinkCheckerPermissionTest extends LinkCheckerInterfaceTest {
+
+  public $contextPermission = FALSE;
+
+  public static function getInfo() {
+    return array(
+      'name' => t('Link checker permission tests'),
+      'description' => t('Test the contextual links permission.'),
+      'group' => 'Link checker',
+    );
+  }
+
+  public function setUp() {
+    DrupalWebTestCase::setUp('block', 'linkchecker', 'path');
+    // @todo: Add comment interface test.
+    // parent::setUp('block', 'comment', 'linkchecker', 'path');
+
+    $full_html_format = filter_format_load('full_html');
+    $permissions = array(
+      // Block permissions.
+      'administer blocks',
+      // Comment permissions.
+      'administer comments',
+      'access comments',
+      'post comments',
+      'skip comment approval',
+      'edit own comments',
+      // Node permissions.
+      'create page content',
+      'edit own page content',
+      // Path aliase permissions.
+      'administer url aliases',
+      'create url aliases',
+      // Content filter permissions.
+      filter_permission_name($full_html_format),
+    );
+
+    $user = $this->drupalCreateUser($permissions);
+    $this->drupalLogin($user);
+    // make sure authenticated user cannot see contextual messages
+    user_role_revoke_permissions(DRUPAL_AUTHENTICATED_RID, array('see contextual messages'));
+  }
+}
+
 
 /**
  * Test case for impersonating users.

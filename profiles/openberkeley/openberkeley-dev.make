@@ -128,14 +128,6 @@ projects[features_override][subdir] = contrib
 projects[google_analytics][version] = 1.4
 projects[google_analytics][subdir] = contrib
 
-; Link Checker
-projects[linkchecker][version] = 1.1
-projects[linkchecker][subdir] = contrib
-
-; Navigation 404
-projects[navigation404][version] = 1.0
-projects[navigation404][subdir] = contrib
-
 ; Nice Menus - used with Berkeley Theme
 projects[nice_menus][version] = 2.5
 projects[nice_menus][subdir] = contrib
@@ -143,14 +135,6 @@ projects[nice_menus][subdir] = contrib
 ; Pathologic - Used for dev/test/live/localhost paths
 projects[pathologic][version] = 2.11
 projects[pathologic][subdir] = contrib
-
-; Redirect - Combined path redirect and global redirect for D7
-projects[redirect][version] = 1.x-dev
-projects[redirect][subdir] = contrib
-projects[redirect][download][type] = git
-projects[redirect][download][revision] = 6957f39
-projects[redirect][download][branch] = 7.x-1.x
-projects[redirect][patch][1796596] = https://www.drupal.org/files/redirect-detect_prevent_circular_redirects_patch_and_test-1796596-48.patch
 
 ; Security Review - Part of go-live process
 projects[security_review][version] = 1.0
