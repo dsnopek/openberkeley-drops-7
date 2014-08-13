@@ -31,7 +31,6 @@ Feature: Use rich text editor
       | Action                        | Element    | Property        | Value        |
       | Bold                          | strong     |                 |              |
       | Italic                        | em         |                 |              |
-      | Strikethrough                 | span       | text-decoration | line-through |
       | Insert/Remove Bulleted List   | ul > li    |                 |              |
       | Insert/Remove Numbered List   | ol > li    |                 |              |
       | Block Quote                   | blockquote |                 |              |
@@ -50,7 +49,6 @@ Feature: Use rich text editor
 
     Examples:
       | Action          | Element | Property        | Value     |
-      | Align Full      | p       | text-align      | justify   |
       | Increase Indent | p       | padding-left    | 30px      |
 
   # Because we start over with the Chrome tests, we need to do this again, but
@@ -84,7 +82,7 @@ Feature: Use rich text editor
     # The media style selector.
     When I wait 2 seconds
       And I switch to the frame "mediaStyleSelector"
-      And I select "Quarter Size" from "format"
+      And I select "Width 200" from "format"
     Then the "Alt Text" field should contain "Sample Alt text"
       And the "Title Text" field should contain "Sample Title text"
       And I click the fake "Submit" button
