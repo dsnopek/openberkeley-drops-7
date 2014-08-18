@@ -258,3 +258,5 @@ projects[panopoly_test][download][branch] = 7.x-1.x
 projects[panopoly_test][patch][2316067] = http://drupal.org/files/issues/panopoly-test-remove-pages-dependency-2316067-1.patch
 ; Patch to fix case sensitive text in live preview test.
 projects[panopoly_test][patch][2316157] = http://drupal.org/files/issues/panopoly-case-sensitive-live-preview-2316157-1.patch
+; Patch to fix dependency on private file variable
+projects[panopoly_test][patch][2268641] = http://www.drupal.org/files/issues/panopoly_test-private-files-2268641-6.patch
