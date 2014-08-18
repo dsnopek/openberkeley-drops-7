@@ -3,6 +3,32 @@
 # This command expects to be run within the Open Berkeley profile (./rebuild.sh from profiles/openberkeley)
 # To use this command you must have `drush make` and `git` installed.
 
+##############
+# FUNCTIONS #
+##############
+# Always declare bash functions at the top of the script (or before they are called).
+function make_tests() {
+    test_dirs=( openberkeley_tests/behat/features/panopoly openberkeley_tests/behat/features/bootstrap modules/panopoly/panopoly_test/tests/features modules/panopoly/panopoly_test/tests/features/bootstrap openberkeley_tests/patches )
+    for testdir in "${test_dirs[@]}"
+    do
+      if [ ! -d  "$testdir" ] || [ ! -w "$testdir" ]; then
+        echo "ERROR: $testdir doesn't exist or isn't writable. Aborting creation of Open Berkeley tests.\n"
+        exit 1
+      fi
+    done
+    cp modules/panopoly/panopoly_test/tests/features/*.feature openberkeley_tests/behat/features/panopoly/
+    cp modules/panopoly/panopoly_test/tests/features/bootstrap/PanopolyContext.php openberkeley_tests/behat/features/bootstrap/
+    patch_dir=openberkeley_tests/patches
+    for file in "$patch_dir"/*
+    do
+      patch -p3 < "$file"
+    done
+}
+
+##########
+# SCRIPT #
+##########
+
 if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
   echo '   ____                       ____               __          __'
   echo '  / __ \ ____   ___   ____   / __ ) ___   _____ / /__ ___   / /___   __  __'
@@ -31,7 +57,8 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
   elif [ $SELECTION = "2" ]; then    
 
     echo "Building Open Berkeley install profile in development mode..."
-    drush -y make --no-core --contrib-destination=. openberkeley-dev.make    
+    drush -y make --no-core --contrib-destination=. openberkeley-dev.make
+    make_tests
 
   elif [ $SELECTION = "3" ]; then
     echo "Cleaning and rebuilding Open Berkeley install profile in development mode..."
@@ -47,6 +74,7 @@ if [ -f openberkeley-prod.make ] || [ -f openberkeley-dev.make ]; then
       fi
     done
     drush -y make --no-core --contrib-destination=. openberkeley-dev.make
+    make_tests
 
   else
    echo "Invalid selection."
