@@ -1,6 +1,6 @@
---- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/wysiwyg.feature
-+++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/wysiwyg.feature
-@@ -31,7 +31,6 @@ Feature: Use rich text editor
+--- /Users/cboyden/Sites/test/obdrops/profiles/openberkeley/modules/panopoly/panopoly_test/tests/features/wysiwyg.feature	2014-08-18 12:59:42.000000000 -0700
++++ wysiwyg.feature	2014-08-18 13:18:18.000000000 -0700
+@@ -31,7 +31,6 @@
        | Action                        | Element    | Property        | Value        |
        | Bold                          | strong     |                 |              |
        | Italic                        | em         |                 |              |
@@ -8,15 +8,16 @@
        | Insert/Remove Bulleted List   | ul > li    |                 |              |
        | Insert/Remove Numbered List   | ol > li    |                 |              |
        | Block Quote                   | blockquote |                 |              |
-@@ -50,7 +49,6 @@ Feature: Use rich text editor
+@@ -50,8 +49,6 @@
  
      Examples:
        | Action          | Element | Property        | Value     |
+-      | Underline       | span    | text-decoration | underline |
 -      | Align Full      | p       | text-align      | justify   |
        | Increase Indent | p       | padding-left    | 30px      |
  
    # Because we start over with the Chrome tests, we need to do this again, but
-@@ -84,7 +82,7 @@ Feature: Use rich text editor
+@@ -85,7 +82,7 @@
      # The media style selector.
      When I wait 2 seconds
        And I switch to the frame "mediaStyleSelector"
