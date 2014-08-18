@@ -73,6 +73,10 @@ function linkchecker_permission() {
       'title' => t('Edit link settings'),
       'description' => t('Allows users to edit broken link settings.'),
     ),
+    'see contextual messages' => array(
+      'title' => t('See broken link messages in context'),
+      'description' => t('Allows users to see messages about broken links on the node, block, and comment edit pages.'),
+    ),
   );
 }
 
@@ -818,7 +822,7 @@ function _linkchecker_status_handling(&$response, $link) {
  */
 function linkchecker_node_prepare($node) {
   // Node edit tab is viewed.
-  if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == 'edit' && isset($node->nid)) {
+  if (user_access('see contextual messages') && arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == 'edit' && isset($node->nid)) {
     // Show a message on node edit page if a link check failed once or more.
     $ignore_response_codes = preg_split('/(\r\n?|\n)/', variable_get('linkchecker_ignore_response_codes', "200\n206\n302\n304\n401\n403"));
     $links = db_query('SELECT ll.* FROM {linkchecker_node} ln INNER JOIN {linkchecker_link} ll ON ln.lid = ll.lid WHERE ln.nid = :nid AND ll.fail_count > :fail_count AND ll.status = :status AND ll.code NOT IN (:codes)', array(':nid' => $node->nid, ':fail_count' => 0, ':status' => 1, ':codes' => $ignore_response_codes));
@@ -921,7 +925,7 @@ function linkchecker_form_alter(&$form, &$form_state, $form_id) {
 
     case 'block_admin_configure':
       // When displaying the form, show the broken links warning.
-      if (empty($form_state['input']) && is_numeric(arg(5))) {
+      if (user_access('see contextual messages') && empty($form_state['input']) && is_numeric(arg(5))) {
         // Show a message on custom block edit page if a link check failed once
         // or more often.
         $ignore_response_codes = preg_split('/(\r\n?|\n)/', variable_get('linkchecker_ignore_response_codes', "200\n206\n302\n304\n401\n403"));
@@ -950,7 +954,7 @@ function linkchecker_form_alter(&$form, &$form_state, $form_id) {
 function linkchecker_form_comment_form_alter(&$form, &$form_state, $form_id) {
   // When displaying the form as 'view' or 'preview', show the broken links
   // warning.
-  if ((empty($form_state['input']) || (isset($form_state['input']['op']) && $form_state['input']['op'] == t('Preview'))) && arg(0) == 'comment' && is_numeric(arg(1)) && arg(2) == 'edit') {
+  if (user_access('see contextual messages') && (empty($form_state['input']) || (isset($form_state['input']['op']) && $form_state['input']['op'] == t('Preview'))) && arg(0) == 'comment' && is_numeric(arg(1)) && arg(2) == 'edit') {
     // Show a message on comment edit page if a link check failed once or
     // more often.
     $ignore_response_codes = preg_split('/(\r\n?|\n)/', variable_get('linkchecker_ignore_response_codes', "200\n206\n302\n304\n401\n403"));

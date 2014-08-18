@@ -96,11 +96,8 @@ dependencies[] = extlink
 ; dependencies[] = faq  ;TODO: Delete once openberkeley_faq has been tested.
 dependencies[] = features_override
 ; dependencies[] = googleanalytics  ;TODO: Delete once openberkeley_admin has been tested.
-; dependencies[] = linkchecker  ;TODO: Delete once openberkeley_admin has been tested.
-; dependencies[] = navigation404  ;TODO: Delete once openberkeley_admin has been tested.
 dependencies[] = nice_menus
 dependencies[] = pathologic
-; dependencies[] = redirect
 
 ; UCB - Recommended (not enabled by default)
 ; dependencies[] = security_review
