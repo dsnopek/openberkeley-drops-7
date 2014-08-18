@@ -1,6 +1,6 @@
 default:
   filters:
-    tags: "~@headless&&~@disabled&&~@panopoly_pages&&~@panopoly_admin&&~@panopoly_demo&&~@panopoly_wysiwyg_video&&~@standard_login"
+    tags: "~@chrome&&~@headless&&~@disabled&&~@panopoly_pages&&~@panopoly_admin&&~@panopoly_demo&&~@panopoly_wysiwyg_video&&~@standard_login"
   context:
     parameters:
       calnet: true
@@ -19,8 +19,6 @@ default:
           curl.options:
             CURLOPT_PORT: 8082
       files_path: ../
-      # required for wysiwyg tests - firefox can't do contenteditable
-      browser_name: chrome
     Drupal\DrupalExtension\Extension:
       blackbox: ~
       api_driver: 'drupal'
@@ -67,6 +65,16 @@ default:
       subcontexts:
         paths:
           - "../../modules"
+
+# Setup for Google Chrome only tests.
+chrome:
+  filters:
+    tags: "@chrome&&~@headless&&~@disabled&&~@panopoly_pages&&~@panopoly_admin&&~@panopoly_demo&&~@panopoly_wysiwyg_video&&~@standard_login"
+  extensions:
+    Behat\MinkExtension\Extension:
+      selenium2:
+        browser: chrome
+        capabilities: {"browser": "chrome", "browserName": "chrome", "browserVersion": "ANY", "version": "ANY"}
 
 # phantomjs profile for headless tests only
 headless:

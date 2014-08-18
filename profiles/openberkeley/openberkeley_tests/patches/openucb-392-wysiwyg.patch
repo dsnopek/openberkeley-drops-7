@@ -9,13 +9,13 @@
        | Insert/Remove Numbered List   | ol > li    |                 |              |
        | Block Quote                   | blockquote |                 |              |
 @@ -50,8 +49,6 @@
- 
+
      Examples:
        | Action          | Element | Property        | Value     |
 -      | Underline       | span    | text-decoration | underline |
 -      | Align Full      | p       | text-align      | justify   |
        | Increase Indent | p       | padding-left    | 30px      |
- 
+
    # Because we start over with the Chrome tests, we need to do this again, but
 @@ -85,7 +82,7 @@
      # The media style selector.
