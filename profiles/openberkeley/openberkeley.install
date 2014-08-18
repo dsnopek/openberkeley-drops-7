@@ -1,0 +1,77 @@
+<?php
+/**
+ * @file
+ * Install hooks for Open Berkeley.
+ */
+
+/**
+ * Update legacy pre-0.1 sites to current platform.
+ */
+function openberkeley_update_7001() {
+  // Disable modules we're no longer using.
+  module_disable(array(
+    // Features.
+    'panopoly_admin',
+    'panopoly_pages',
+    // Normal modules.
+    'entity_view_mode',
+  ));
+  
+  // Enable all the new features.
+  module_enable(array(
+    // Features.
+    'openberkeley_base',
+    'openberkeley_core_override',
+    'openberkeley_media',
+    'openberkeley_pages',
+    'openberkeley_theme',
+    'openberkeley_wysiwyg_override',
+    'openberkeley_admin',
+    // Normal modules.
+    'admin_menu_toolbar',
+  ));
+
+  // Convert all pages from 'panopoly_page' to 'openberkeley_content_page'.
+  db_update('node')
+    ->fields(array(
+      'type' => 'openberkeley_content_page',
+    ))
+    ->condition('type', 'panopoly_page', '=')
+    ->execute();
+
+  // Delete the 'panopoly_page' content type.
+  db_delete('node_type')
+    ->condition('type', 'panopoly_page')
+    ->execute();
+
+  // Switch content on 'editor' input format to 'panopoly_wysiwyg_text'.
+  $fields = field_info_field_map();
+  foreach ($fields as $field_name => $field_info_lite) {
+    if (in_array($field_info_lite['type'], array('text_long', 'text_with_summary'))) {
+      $field_info = field_info_field($field_name);
+      if (empty($field_info['storage']['details']['sql'])) {
+        // If there is no SQL storage information, skip it!
+        continue;
+      }
+      foreach ($field_info['storage']['details']['sql'] as $table_info) {
+        foreach ($table_info as $table_name => $column_info) {
+          db_update($table_name)
+            ->fields(array($column_info['format'] => 'panopoly_wysiwyg_text'))
+            ->condition($column_info['format'], 'editor')
+            ->execute();
+        }
+      }
+    }
+  }
+
+  // Delete the 'editor' input format.
+  db_delete('filter')
+    ->condition('format', 'editor')
+    ->execute();
+  db_delete('filter_format')
+    ->condition('format', 'editor')
+    ->execute();
+
+  // Clear all caches in the end, so all changes take.
+  drupal_flush_all_caches();
+}
