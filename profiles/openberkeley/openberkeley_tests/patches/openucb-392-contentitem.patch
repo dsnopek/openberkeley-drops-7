@@ -1,0 +1,8 @@
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/contentitem_widget.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/contentitem_widget.feature
+@@ -23,5 +23,5 @@ Feature: Add content item
+       And I wait for the Panels IPE to deactivate
+     Then I should see "Test Page 1"
+       And I should see "January 1, 2001"
+-      And I should see "Posted by Anonymous"
++      And I should see "Submitted by Anonymous"
