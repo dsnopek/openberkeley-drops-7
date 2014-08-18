@@ -11,6 +11,13 @@
 function linkchecker_install() {
   $linkchecker_default_impersonate_user = user_load(1);
   variable_set('linkchecker_impersonate_user', $linkchecker_default_impersonate_user->name);
+  $linkchecker_default_permissions = array(
+    'see contextual messages',
+    );
+  $roles = user_roles(TRUE);
+  foreach ($roles as $key => $value) {
+    user_role_grant_permissions($key, $linkchecker_default_permissions);
+  }
 }
 
 /**
@@ -452,6 +459,20 @@ function linkchecker_update_7011() {
   else {
     return t('User agent already up to date.');
   }
+}
+
+/**
+ * Issue #1886890: Grant new permission to see broken link messages on node edit forms.
+ */
+function linkchecker_update_7012() {
+  $linkchecker_default_permissions = array(
+    'see contextual messages',
+    );
+  $roles = user_roles(TRUE);
+  foreach ($roles as $key => $value) {
+    user_role_grant_permissions($key, $linkchecker_default_permissions);
+  }
+  return t('Added permission to see broken link messages in context on edit forms.');
 }
 
 

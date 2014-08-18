@@ -25,6 +25,20 @@ function openberkeley_admin_defaultconfig_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'linkchecker_ignore_response_codes';
+  $strongarm->value = '200
+206
+301
+302
+303
+304
+401
+403';
+  $export['linkchecker_ignore_response_codes'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'total_control_auto_pages';
   $strongarm->value = array(
     'type' => 0,
