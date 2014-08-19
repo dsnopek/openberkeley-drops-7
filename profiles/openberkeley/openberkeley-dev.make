@@ -259,4 +259,4 @@ projects[panopoly_test][patch][2316067] = http://drupal.org/files/issues/panopol
 ; Patch to fix case sensitive text in live preview test.
 projects[panopoly_test][patch][2316157] = http://drupal.org/files/issues/panopoly-case-sensitive-live-preview-2316157-1.patch
 ; Patch to fix dependency on private file variable
-projects[panopoly_test][patch][2268641] = http://www.drupal.org/files/issues/panopoly_test-private-files-2268641-6.patch
+projects[panopoly_test][patch][2268641] = http://www.drupal.org/files/issues/panopoly_test-private-files-2268641-13.patch
