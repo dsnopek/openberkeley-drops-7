@@ -464,6 +464,7 @@ function linkchecker_update_7011() {
 /**
  * Issue #1886890: Grant new permission to see broken link messages on node edit forms.
  */
+/*
 function linkchecker_update_7012() {
   $linkchecker_default_permissions = array(
     'see contextual messages',
@@ -474,6 +475,7 @@ function linkchecker_update_7012() {
   }
   return t('Added permission to see broken link messages in context on edit forms.');
 }
+*/
 
 
 if (!function_exists('array_replace')) {

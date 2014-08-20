@@ -5,9 +5,140 @@
  */
 
 /**
- * Update legacy pre-0.1 sites to current platform.
+ * Change content from one type to another, deleting the type at the end.
+ *
+ * @param string $old_type
+ *   Name of the old content type.
+ * @param string $new_type
+ *   Name of the new content type.
+ */
+function _openberkeley_install_change_content_type($old_type, $new_type) {
+  db_update('node')
+    ->fields(array(
+      'type' => $new_type,
+    ))
+    ->condition('type', $old_type, '=')
+    ->execute();
+
+  db_delete('node_type')
+    ->condition('type', $old_type)
+    ->execute();
+}
+
+/**
+ * Change content from one input format to another, deleting the old at the end.
+ *
+ * @param string $old_format
+ *   Name of the old input format.
+ * @param string $new_type
+ *   Name of the new input format.
+ */
+function _openberkeley_install_change_input_format($old_format, $new_format) {
+  // Change the format on all fields.
+  $fields = field_info_field_map();
+  foreach ($fields as $field_name => $field_info_lite) {
+    if (in_array($field_info_lite['type'], array('text_long', 'text_with_summary'))) {
+      $field_info = field_info_field($field_name);
+      if (empty($field_info['storage']['details']['sql'])) {
+        // If there is no SQL storage information, skip it!
+        continue;
+      }
+      foreach ($field_info['storage']['details']['sql'] as $table_info) {
+        foreach ($table_info as $table_name => $column_info) {
+          db_update($table_name)
+            ->fields(array($column_info['format'] => $new_format))
+            ->condition($column_info['format'], $old_format)
+            ->execute();
+        }
+      }
+    }
+  }
+
+  // Delete the format afterward.
+  db_delete('filter')
+    ->condition('format', $old_format)
+    ->execute();
+  db_delete('filter_format')
+    ->condition('format', $old_format)
+    ->execute();
+
+  // Clear the cache so deletion takes in the UI.
+  cache_clear_all('filter_formats:', 'cache', TRUE);
+}
+
+/**
+ * Rename an array of fields.
+ *
+ * Adapted from code in forum_update_7003(). See also
+ * zgadzaj.com/how-to-change-the-machine-name-of-a-content-field-in-
+ * drupal-7.
+ *
+ * @param array $fields
+ *   Array of field names, with old names as keys and new names as values.
+ * @param boolean $drop_first
+ *   Boolean: whether to drop any existing tables for the renamed fields. If
+ *   you have created the renamed field already - for example, by renaming
+ *   a field that was exported to Features and then reverting the feature -
+ *   you may wish to set this argument to TRUE so that your data will be
+ *   copied.
+ */
+function _openberkeley_install_rename_fields($fields, $drop_first = FALSE) {
+  foreach ($fields as $old_field_name => $new_field_name) {
+    // Read field data.
+    $old_field = field_read_field($old_field_name);
+    // Update {field_config}.
+    db_update('field_config')->fields(array('field_name' => $new_field_name))->condition('id', $old_field['id'])->execute();
+    // Update {field_config_instance}.
+    db_update('field_config_instance')->fields(array('field_name' => $new_field_name))->condition('field_id', $old_field['id'])->execute();
+    // The tables that need updating in the form 'old_name' => 'new_name'.
+    $tables = array(
+      'field_data_' . $old_field_name => 'field_data_' . $new_field_name,
+      'field_revision_' . $old_field_name => 'field_revision_' . $new_field_name,
+    );
+    // Iterate through tables to be redefined and renamed.
+    foreach ($tables as $old_table => $new_table) {
+      // Iterate through the field's columns. For example, a 'text' field will
+      // have columns 'value' and 'format'.
+      foreach ($old_field['columns'] as $column_name => $column_definition) {
+        // Column names are in the format {field_name}_{column_name}.
+        $old_column_name = $old_field_name . '_' . $column_name;
+        $new_column_name = $new_field_name . '_' . $column_name;
+        // If there is an index for the field, drop and then re-add it.
+        $has_index = isset($old_field['indexes'][$column_name]) && ($old_field['indexes'][$column_name] == array($column_name));
+        if ($has_index) {
+          db_drop_index($old_table, $old_column_name);
+        }
+        // Rename the column.
+        db_change_field($old_table, $old_column_name, $new_column_name, $column_definition);
+        if ($has_index) {
+          db_drop_index($old_table, $new_column_name);
+          db_add_index($old_table, $new_column_name, array($new_column_name));
+        }
+        watchdog('mymodule', 'Renamed field !old_field_name to !new_field_name.', array('!old_field_name' => $old_field_name, '!new_field_name' => $new_field_name));
+      }
+      // The new table may exist e.g. due to having been included in a feature
+      // that was reverted prior to this update being run. If so, we need to
+      // drop the new table so that the old one can be renamed.
+      if ($drop_first && db_table_exists($new_table)) {
+        db_drop_table($new_table);
+      }
+      // Rename the table.
+      db_rename_table($old_table, $new_table);
+    }
+  }
+}
+
+/**
+ * Update Panopoly 1.0-beta4 sites to something roughly pre-0.1.
  */
 function openberkeley_update_7001() {
+  // TODO: I'm not really sure what needs updating in the -beta4 sites yet.
+}
+
+/**
+ * Update Open Berkeley pre-0.1 sites to Open Berkeley 0.1.
+ */
+function openberkeley_update_7002() {
   // Disable modules we're no longer using.
   module_disable(array(
     // Features.
@@ -32,46 +163,17 @@ function openberkeley_update_7001() {
   ));
 
   // Convert all pages from 'panopoly_page' to 'openberkeley_content_page'.
-  db_update('node')
-    ->fields(array(
-      'type' => 'openberkeley_content_page',
-    ))
-    ->condition('type', 'panopoly_page', '=')
-    ->execute();
-
-  // Delete the 'panopoly_page' content type.
-  db_delete('node_type')
-    ->condition('type', 'panopoly_page')
-    ->execute();
+  _openberkeley_install_change_content_type('panopoly_page', 'openberkeley_content_page');
 
   // Switch content on 'editor' input format to 'panopoly_wysiwyg_text'.
-  $fields = field_info_field_map();
-  foreach ($fields as $field_name => $field_info_lite) {
-    if (in_array($field_info_lite['type'], array('text_long', 'text_with_summary'))) {
-      $field_info = field_info_field($field_name);
-      if (empty($field_info['storage']['details']['sql'])) {
-        // If there is no SQL storage information, skip it!
-        continue;
-      }
-      foreach ($field_info['storage']['details']['sql'] as $table_info) {
-        foreach ($table_info as $table_name => $column_info) {
-          db_update($table_name)
-            ->fields(array($column_info['format'] => 'panopoly_wysiwyg_text'))
-            ->condition($column_info['format'], 'editor')
-            ->execute();
-        }
-      }
-    }
-  }
+  _openberkeley_install_change_input_format('editor', 'panopoly_wysiwyg_text');
 
-  // Delete the 'editor' input format.
-  db_delete('filter')
-    ->condition('format', 'editor')
-    ->execute();
-  db_delete('filter_format')
-    ->condition('format', 'editor')
-    ->execute();
-
-  // Clear all caches in the end, so all changes take.
-  drupal_flush_all_caches();
+  // Updates for Open Berkeley News
+  module_enable(array('openberkeley_news'));
+  _openberkeley_install_change_content_type('news_item', 'openberkeley_news_item');
+  _openberkeley_install_rename_fields(array(
+    'field_external_link' => 'field_openberkeley_news_xlink',
+    'field_source' => 'field_openberkeley_news_source',
+    'field_publication_date' => 'field_openberkeley_news_pdate',
+  ), TRUE);
 }
