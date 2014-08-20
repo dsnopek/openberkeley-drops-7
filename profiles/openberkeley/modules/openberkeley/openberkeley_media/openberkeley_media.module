@@ -1,0 +1,71 @@
+<?php
+/**
+ * @file
+ * Code for the Open Berkeley Media feature.
+ */
+
+include_once 'openberkeley_media.features.inc';
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function openberkeley_media_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'media_wysiwyg_wysiwyg_allowed_view_modes_alter') {
+    $group = $implementations['openberkeley_media'];
+    unset($implementations['openberkeley_media']);
+    $implementations['openberkeley_media'] = $group;
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function openberkeley_media_entity_info_alter(&$info) {
+  if (!empty($info['file']['view modes'])) {
+    // Add additional file view modes for each of the image styles.
+    $view_modes = array(
+      'width_100' => t('Width 100'),
+      'width_200' => t('Width 200'),
+      'width_300' => t('Width 300'),
+      'width_400' => t('Width 400'),
+      'untouched' => t('Untouched'),
+    );
+    foreach ($view_modes as $view_mode => $label) {
+      $info['file']['view modes'][$view_mode] = array(
+        'label' => $label,
+        'custom settings' => FALSE,
+      );
+    }
+  }
+}
+
+/**
+ * Implements hook_media_wysiwyg_wysiwyg_allowed_view_modes_alter().
+ */
+function openberkeley_media_media_wysiwyg_wysiwyg_allowed_view_modes_alter(&$options, $context) {
+  if ($context->type == 'image') {
+    // Unset some view modes that we don't use.
+    $unused_view_modes = array('teaser', 'media_link', 'media_original', 'untouched');
+    foreach ($unused_view_modes as $view_mode) {
+      unset($options[$view_mode]);
+    }
+  }
+}
+
+/**
+ * Implements hook_strongarm_alter().
+ */
+function openberkeley_media_strongarm_alter(&$data) {
+  if (isset($data['media_wysiwyg_wysiwyg_allowed_types'])) {
+    $data['media_wysiwyg_wysiwyg_allowed_types']->value = array(
+      'document',
+      'image',
+    );
+  }
+  if (isset($data['media_wysiwyg_wysiwyg_browser_plugins'])) {
+    $data['media_wysiwyg_wysiwyg_browser_plugins']->value = array(
+      'upload',
+      'media_default--media_browser_1',
+    );
+  }
+}

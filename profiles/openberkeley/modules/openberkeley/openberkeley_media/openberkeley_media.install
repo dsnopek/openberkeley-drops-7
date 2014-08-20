@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Install hooks for Open Berkeley Media feature.
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function openberkeley_media_enable() {
+  // We make some changes to strongarm defaults, but they won't get acted
+  // on until the original Feature is reverted.
+  features_revert(array(
+    'panopoly_wysiwyg' => array('variable'),
+  ));
+}
