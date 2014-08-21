@@ -7,6 +7,9 @@ projects[admin_menu][subdir] = contrib
 projects[admin_views][version] = 1.3
 projects[admin_views][subdir] = contrib
 
+projects[backup_migrate][version] = 2.8
+projects[backup_migrate][subdir] = contrib
+
 projects[google_analytics][version] = 2.0
 projects[google_analytics][subdir] = contrib
 
@@ -23,7 +26,6 @@ projects[redirect][download][type] = git
 projects[redirect][download][revision] = 6957f39
 projects[redirect][download][branch] = 7.x-1.x
 projects[redirect][patch][1796596] = https://www.drupal.org/files/redirect-detect_prevent_circular_redirects_patch_and_test-1796596-48.patch
-
 
 projects[total_control][version] = 2.4
 projects[total_control][subdir] = contrib
