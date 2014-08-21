@@ -79,10 +79,6 @@ projects[berkeley][download][tag] = 7.x-1.0-alpha11
 ; ******************************
 ; ***** OB not in Panopoly *****
 
-; Backup and Migrate - Used for local backups
-projects[backup_migrate][version] = 2.7
-projects[backup_migrate][subdir] = contrib
-
 ; Bundle Copy - Used for exporting content types in D7
 projects[bundle_copy][version] = 1.1
 projects[bundle_copy][subdir] = contrib
@@ -124,10 +120,6 @@ projects[extlink][subdir] = contrib
 projects[features_override][version] = 2.0-rc1
 projects[features_override][subdir] = contrib
 
-; Google Analytics
-projects[google_analytics][version] = 1.4
-projects[google_analytics][subdir] = contrib
-
 ; Nice Menus - used with Berkeley Theme
 projects[nice_menus][version] = 2.5
 projects[nice_menus][subdir] = contrib
@@ -143,10 +135,6 @@ projects[security_review][subdir] = contrib
 ; SMTP
 projects[smtp][version] = 1.0
 projects[smtp][subdir] = contrib
-
-; Total Control - Used for Site Builder dashboard
-projects[total_control][version] = 2.4
-projects[total_control][subdir] = contrib
 
 ; Zen - Base theme for Berkeley Theme
 projects[zen][version] = 5.5
