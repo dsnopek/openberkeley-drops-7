@@ -82,8 +82,12 @@ function panopoly_search_update_7002(&$sandbox) {
  */
 function panopoly_search_update_7003(&$sandbox) {
   $database_server = search_api_server_load('database_server');
-  $database_index = search_api_index_load('database_node_index'); 
-  $database_server->fieldsUpdated($database_index);
+  if ($database_index = search_api_index_load('database_node_index')) {
+    $database_server->fieldsUpdated($database_index);
+  }
+  else {
+    features_revert(array('panopoly_search' => array('search_api_index')));
+  }
   return t('Panopoly\'s Search DB Search API index has been updated');
 }
 

@@ -129,6 +129,7 @@ function panopoly_widgets_update_7002(&$sandbox) {
  * Move video mediafield data into a file field.
  */
 function panopoly_widgets_update_7003(&$sandbox) {
+  /*
   $results = entity_load('fieldable_panels_pane');
   foreach ($results as $entity) {
     foreach ($entity->field_video_video[LANGUAGE_NONE] as $f) {
@@ -144,6 +145,7 @@ function panopoly_widgets_update_7003(&$sandbox) {
     drupal_form_submit('fieldable_panels_panes_entity_edit_form', $form_state);
   }
   field_delete_field('field_video_video');
+  */
 }
 
 /**
@@ -224,6 +226,10 @@ function panopoly_widgets_update_7007(&$sandbox) {
   $data_table_name = 'field_data_field_basic_spotlight_items';
   $revision_table_name = 'field_revision_field_basic_spotlight_items';
   $field_name = 'field_basic_spotlight_items_alt';
-  db_add_field($data_table_name, $field_name, $spec);
-  db_add_field($revision_table_name, $field_name, $spec);
+  if (!db_field_exists($data_table_name, $field_name)) {
+    db_add_field($data_table_name, $field_name, $spec);
+  }
+  if (!db_field_exists($revision_table_name, $field_name)) {
+    db_add_field($revision_table_name, $field_name, $spec);
+  }
 }
