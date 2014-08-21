@@ -1,0 +1,345 @@
+<?php
+/**
+ * @file
+ * Code for the Open Berkeley Admin feature.
+ */
+
+include_once 'openberkeley_admin.features.inc';
+/**
+ * Implements hook_menu().
+ */
+function openberkeley_admin_menu() {
+
+  $items = array();
+
+  $items['admin/config/openberkeley'] = array(
+    'title' => 'Open Berkeley',
+    'description' => 'Configure Open Berkeley settings.',
+    'position' => 'left',
+    'weight' => -20,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/config/openberkeley/spotlight'] = array(
+    'title' => 'Spotlight Settings',
+    'description' => 'Configure Spotlight settings.',
+    'position' => 'left',
+    'weight' => 0,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('panopoly_widgets_configure_form'),
+    'access arguments' => array('administer spotlight settings'),
+  );
+  $items['admin/dashboard/openberkeley'] = array(
+    'title' => 'Open Berkeley',
+    'type' => MENU_LOCAL_TASK,
+    'description' => 'Configure Open Berkeley settings.',
+    'position' => 'left',
+    'page callback' => 'openberkeley_admin_openberkeley_settings_page',
+    'access arguments' => array('administer openberkeley settings'),
+    'file' => 'openberkeley_admin.admin.inc',
+    'file path' => drupal_get_path('module', 'openberkeley_admin'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ *
+ * Adds permissions for access to Open Berkeley administration functionality
+ */
+function openberkeley_admin_permission() {
+  return array(
+    'administer openberkeley settings' => array(
+      'title' => t('Administer Open Berkeley Settings'),
+      'description' => t('See the Open Berkeley tab on the Total Control dashboard.'),
+    ),
+    'administer spotlight settings' => array(
+      'title' => t('Administer Spotlight Settings'),
+      'description' => t('See the Spotlight link under the Open Berkeley tab on the Total Control dashboard.'),
+    ),
+    'access dashboard create content' => array(
+      'title' => t('Access Dashboard Create Content pane'),
+      'description' => t('See the Create Content pane under the Dashbaord tab on the Total Control dashboard.'),
+    ),
+    'access dashboard content overview' => array(
+      'title' => t('Access dashboard Content Overview pane'),
+      'description' => t('See the Content Overview pane under the Dashbaord tab on the Total Control dashboard.'),
+    ),
+    'access dashboard new user accounts' => array(
+      'title' => t('Access dashboard New User Accounts pane'),
+      'description' => t('See the New User Accounts pane under the Dashbaord tab on the Total Control dashboard.'),
+    ),
+    'access dashboard new content' => array(
+      'title' => t('Access dashboard New Content pane'),
+      'description' => t('See the New Content pane under the Dashbaord tab on the Total Control dashboard.'),
+    ),
+    'access dashboard unpublished content' => array(
+      'title' => t('Access dashboard Unpublished Content pane'),
+      'description' => t('See the Unpublished Content pane under the Dashbaord tab on the Total Control dashboard.'),
+    ),
+    'access dashboard administer menus' => array(
+      'title' => t('Access dashboard Administer Menus pane'),
+      'description' => t('See the Administer Menus pane under the Dashbaord tab on the Total Control dashboard.'),
+    ),
+    'access dashboard administer taxonomy' => array(
+      'title' => t('Access dashboard Administer Taxonomy pane'),
+      'description' => t('See the Administer Taxonomy pane under the Dashbaord tab on the Total Control dashboard.'),
+    ),
+    'access dashboard url administration' => array(
+      'title' => t('Access dashboard URL Administration pane'),
+      'description' => t('See the URL Administration pane under the Dashbaord tab on the Total Control dashboard.'),
+    ),
+    'access dashboard other administration' => array(
+      'title' => t('Access dashboard Other Administration pane'),
+      'description' => t('See the Other Administration pane under the Dashbaord tab on the Total Control dashboard.'),
+    ),
+    'access dashboard backups' => array(
+      'title' => t('Access dashboard Backups pane'),
+      'description' => t('See the Backups pane under the Dashbaord tab on the Total Control dashboard.'),
+    ),
+
+  );
+}
+
+/**
+ * Implementation of hook_form_alter
+ *
+ */
+function openberkeley_admin_form_alter(&$form, &$form_state, $form_id) {
+  $pantheon_description = "<em>Backups for Pantheon-hosted sites must be downloaded, they cannot be saved to the server.</em>";
+  switch ($form_id) {
+    case "views_form_control_users_page_1":
+      if (!isset($form['add_roles']) || (!isset($form['remove_roles']))) {
+        break;
+      }
+      $admin_rid = variable_get('user_admin_role');
+      $roles = user_roles();
+      $admin_rolename = NULL;
+      if ((!is_array($roles)) || (!array_key_exists($admin_rid, $roles))) {
+        drupal_set_message("Roles may be misconfigured. Possible security implications. Ask your administrator to check on this.", "warning");
+      }
+      else {
+        $admin_rolename = $roles[$admin_rid];
+      }
+
+      while (list($k, $v) = each($form['add_roles']['#options'])) {
+        if ($v == $admin_rolename) {
+          unset($form['add_roles']['#options'][$k]);
+        }
+      }
+      while (list($k, $v) = each($form['remove_roles']['#options'])) {
+        if ($v == $admin_rolename) {
+          unset($form['remove_roles']['#options'][$k]);
+        }
+      }
+      break;
+    case "panopoly_widgets_configure_form":
+      $form['panopoly_widgets_spotlight_rotation_time']['#default_value'] = 5;
+      $form['panopoly_widgets_spotlight_pause_play_buttons']['#access'] = FALSE;
+      break;
+    case "backup_migrate_ui_manual_quick_backup_form":
+      //TODO: write test for this alter
+      if (array_key_exists('PANTHEON_SITE_NAME', $_ENV)) {
+        // Prevent saving backups to Pantheon servers
+        $form['quickbackup']['destination_id']['#options'] = array('download' => 'Download');
+        $form['quickbackup']['pantheon'] = array(
+          '#type' => 'markup',
+          '#markup' => $pantheon_description,
+        );
+      }
+      break;
+    case "backup_migrate_ui_manual_backup_form":
+      //TODO: write test for this alter
+      if (array_key_exists('PANTHEON_SITE_NAME', $_ENV)) {
+        // Prevent saving backups to Pantheon servers
+        $form['destination']['destination_id']['#options'] = array('download' => 'Download');
+        $form['destination']['pantheon'] = array(
+          '#type' => 'markup',
+          '#markup' => $pantheon_description,
+        );
+      }
+      break;
+  }
+}
+
+function openberkeley_admin_block_info() {
+  $blocks['url_administration']['info'] = t('URL Administration');
+  $blocks['other_administration']['info'] = t('Other Administration');
+  $blocks['backups']['info'] = t('Backups');
+
+  return $blocks;
+}
+
+function openberkeley_admin_block_view($delta = '') {
+  // The $delta parameter tells us which block is being requested.
+  switch ($delta) {
+    case 'other_administration':
+      $block['subject'] = t('Other Administration');
+      $block['content'] = openberkeley_admin_block_other_administration_content();
+      //$block['content'] = '<b>test content</b>';
+      break;
+    case 'url_administration':
+      $block['subject'] = t('URL Administration');
+      $block['content'] = openberkeley_admin_block_url_administration_content();
+      break;
+    case 'backups':
+      $block['subject'] = t('Backups');
+      $block['content'] = openberkeley_admin_block_backups_content();
+      break;
+  }
+
+  return $block;
+}
+
+function openberkeley_admin_block_url_administration_content() {
+  $content = '<ul>';
+  if (module_exists('pathauto')) {
+    $content .= '<li>' . l("Administer URL Aliases", "admin/config/search/path") . '</li>';
+  }
+  if (module_exists('redirect')) {
+    $content .= '<li>' . l("Administer URL Redirects", "admin/config/search/redirect") . '</li>';
+  }
+  $content .= '</ul>';
+  return $content;
+}
+
+function openberkeley_admin_block_other_administration_content() {
+  global $theme;
+
+  $content = '<ul>';
+  $content .= '<li>' . l(ucfirst($theme) . " Theme Settings", "admin/appearance/settings/$theme") . '</li>';
+  $content .= '<li>' . l("Edit Site Information", "admin/config/system/site-information") . '</li>';
+  // Fetch a list of regions for the current theme.
+  // $all_regions = system_region_list($theme);
+  $footer_regions = array(
+    'footer_first',
+    'footer_second',
+    'footer_third',
+    'footer_fourth',
+  );
+  $blocks_footer = array();
+  //foreach (array_keys($all_regions) as $region) { //looping over this in this context will loop infinitely
+  foreach ($footer_regions as $region) {
+    $blocks_footer[] = block_list($region);
+  }
+  foreach ($blocks_footer as $bf) {
+    foreach ($bf as $bf_block) {
+      $delta = $bf_block->delta;
+      $subject = $bf_block->subject;
+      $content .= '<li>' . l("Edit Footer: $subject", "admin/structure/block/manage/block/$delta/configure?destination=admin/dashboard") . '</li>';
+    }
+  }
+  $content .= '</ul>';
+
+  return $content;
+}
+
+function openberkeley_admin_block_backups_content() {
+  $content = '<ul>';
+  if (module_exists('backup_migrate')) {
+    $content .= '<li>' . l("Create Backups", "admin/config/system/backup_migrate") . '</li>';
+    $content .= '<li>' . l("Restore Backups", "admin/config/system/backup_migrate/restore") . '</li>';
+  }
+  $content .= '</ul>';
+  return $content;
+}
+
+
+/**
+ * Implements hook_views_api().
+ */
+function openberkeley_admin_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
+ * Implements hook_views_default_views_alter()
+ * - change date format
+ * - Add VBO user roles actions, pathauto and panelizer settings
+ */
+
+function openberkeley_admin_views_default_views_alter(&$views) {
+  if (array_key_exists('control_users', $views)) {
+    $handler =& $views['control_users']->display['default']->handler;
+    $handler->display->display_options['fields']['login']['custom_date_format'] = 'm/d g:ia';
+    $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+      'action::user_block_user_action' => array(
+        'selected' => 1,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::views_bulk_operations_delete_item' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::views_bulk_operations_script_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::views_bulk_operations_modify_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+        'settings' => array(
+          'show_all_tokens' => 1,
+          'display_values' => array(
+            '_all_' => '_all_',
+          ),
+        ),
+      ),
+      'action::views_bulk_operations_user_roles_action' => array(
+        'selected' => 1,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::views_bulk_operations_argument_selector_action' => array(
+        'selected' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+        'settings' => array(
+          'url' => '',
+        ),
+      ),
+      'action::system_send_email_action' => array(
+        'selected' => 1,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 1,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::panelizer_set_status_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+      'action::pathauto_user_update_action' => array(
+        'selected' => 0,
+        'postpone_processing' => 0,
+        'skip_confirmation' => 0,
+        'override_label' => 0,
+        'label' => '',
+      ),
+    );
+  }
+}
+
+
+
