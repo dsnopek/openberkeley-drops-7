@@ -46,6 +46,11 @@ projects[openberkeley_core_override][subdir] = openberkeley
 projects[openberkeley_core_override][download][type] = git
 projects[openberkeley_core_override][download][url] = git://github.com/ucb-ist-drupal/openberkeley_core_override.git
 
+projects[openberkeley_media][type] = module
+projects[openberkeley_media][subdir] = openberkeley
+projects[openberkeley_media][download][type] = git
+projects[openberkeley_media][download][url] = git://github.com/ucb-ist-drupal/openberkeley_media.git
+
 projects[openberkeley_starter][type] = module
 projects[openberkeley_starter][subdir] = openberkeley
 projects[openberkeley_starter][download][type] = git
@@ -105,8 +110,9 @@ projects[email][version] = 1.2
 projects[email][subdir] = contrib
 
 ; Entity View Mode - Used for View Modes (image styles)
-projects[entity_view_mode][version] = 1.0-rc1
-projects[entity_view_mode][subdir] = contrib
+; TODO: delete after testing openberkeley_media
+; projects[entity_view_mode][version] = 1.0-rc1
+; projects[entity_view_mode][subdir] = contrib
 
 ; External Link - extlink and mailto icons and behavior
 projects[extlink][version] = 1.13
