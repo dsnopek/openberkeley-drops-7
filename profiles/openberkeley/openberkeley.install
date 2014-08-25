@@ -139,13 +139,12 @@ function openberkeley_update_7001() {
  * Update Open Berkeley pre-0.1 sites to Open Berkeley 0.1.
  */
 function openberkeley_update_7002() {
-  // Disable modules we're no longer using.
+  // Disable Panopoly modules we will conflict with. These should already be
+  // removed by our pre-upgrade.sh script, but we're doing this again here
+  // just in case.
   module_disable(array(
-    // Features.
     'panopoly_admin',
     'panopoly_pages',
-    // Normal modules.
-    'entity_view_mode',
   ));
   
   // Enable all the new features.
