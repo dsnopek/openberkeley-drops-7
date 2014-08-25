@@ -20,6 +20,14 @@ drush_sqlq() {
   echo "$1" | $MYSQL_CONNECT
 }
 
+# After some period of time, Pantheon rotates the username/password on the
+# database, so we need to update your Drush aliases. This depends on having
+# installed and authenticated with Terminus:
+#
+#   https://github.com/pantheon-systems/terminus
+#
+$DRUSH pantheon-aliases
+
 # Switch profile from 'panopoly' to 'openberkeley'. Unfortunately, drush won't
 # be able to bootstrap Drupal ('drush vset' will error out) so we have to set
 # this variable directly in the database.
