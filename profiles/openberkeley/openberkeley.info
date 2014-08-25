@@ -43,7 +43,6 @@ dependencies[] = panopoly_wysiwyg
 ; Panopoly Recommended - Admin & UI
 ; These commented items are not used by Open Berkeley
 ; dependencies[] = navbar
-; dependencies[] = admin_menu  
 dependencies[] = breakpoints
 dependencies[] = backports
 dependencies[] = simplified_menu_admin
@@ -87,8 +86,6 @@ dependencies[] = openberkeley_faq
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; ***** OB not in Panopoly *****
-; dependencies[] = backup_migrate   ;TODO: Delete once openberkeley_admin has been tested.
-dependencies[] = bundle_copy
 dependencies[] = config_perms
 dependencies[] = diff
 dependencies[] = email
@@ -96,7 +93,6 @@ dependencies[] = email
 dependencies[] = extlink
 ; dependencies[] = faq  ;TODO: Delete once openberkeley_faq has been tested.
 dependencies[] = features_override
-; dependencies[] = googleanalytics  ;TODO: Delete once openberkeley_admin has been tested.
 dependencies[] = nice_menus
 dependencies[] = pathologic
 
