@@ -35,7 +35,7 @@ class OpenBerkeleyStarterNodePages extends Migration {
     $this->addFieldMapping('field_featured_status')->defaultValue(0);
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('body', 'body');
-    $this->addFieldMapping('body:format')->defaultValue('editor');
+    $this->addFieldMapping('body:format')->defaultValue('panopoly_wysiwyg_text');
   }
 
   protected function csvcolumns() {

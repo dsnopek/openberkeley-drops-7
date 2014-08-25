@@ -247,6 +247,76 @@ function openberkeley_admin_user_default_permissions() {
     'module' => 'linkchecker',
   );
 
+  // Exported permission: 'execute node_publish_action'.
+  $permissions['execute node_publish_action'] = array(
+    'name' => 'execute node_publish_action',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+      'editor' => 'editor',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute node_unpublish_action'.
+  $permissions['execute node_unpublish_action'] = array(
+    'name' => 'execute node_unpublish_action',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+      'editor' => 'editor',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute node_unpublish_by_keyword_action'.
+  $permissions['execute node_unpublish_by_keyword_action'] = array(
+    'name' => 'execute node_unpublish_by_keyword_action',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute views_bulk_operations_delete_item'.
+  $permissions['execute views_bulk_operations_delete_item'] = array(
+    'name' => 'execute views_bulk_operations_delete_item',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute views_bulk_operations_delete_revision'.
+  $permissions['execute views_bulk_operations_delete_revision'] = array(
+    'name' => 'execute views_bulk_operations_delete_revision',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute views_bulk_operations_script_action'.
+  $permissions['execute views_bulk_operations_script_action'] = array(
+    'name' => 'execute views_bulk_operations_script_action',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute views_bulk_operations_user_roles_action'.
+  $permissions['execute views_bulk_operations_user_roles_action'] = array(
+    'name' => 'execute views_bulk_operations_user_roles_action',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+    ),
+    'module' => 'actions_permissions',
+  );
+
   // Exported permission: 'flush caches'.
   $permissions['flush caches'] = array(
     'name' => 'flush caches',
