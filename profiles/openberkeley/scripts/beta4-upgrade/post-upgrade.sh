@@ -12,27 +12,35 @@ fi
 
 DRUSH=${DRUSH:-drush}
 
+# Pantheon has an 'input screener' on what it allows you to do over SSH, and 
+# using 'drush sqlq' runs afoul of it! Here is some hyper-magic to allow us to
+# execute SQL on Patheon (and locally).
+drush_sqlq() {
+  local MYSQL_CONNECT=`$DRUSH $ALIAS sql-connect`
+  echo "$1" | $MYSQL_CONNECT
+}
+
 # Switch profile from 'panopoly' to 'openberkeley'. Unfortunately, drush won't
 # be able to bootstrap Drupal ('drush vset' will error out) so we have to set
 # this variable directly in the database.
-$DRUSH $ALIAS sqlq "UPDATE variable SET value = 's:12:\"openberkeley\";' WHERE name = 'install_profile'"
+drush_sqlq "UPDATE variable SET value = 's:12:\"openberkeley\";' WHERE name = 'install_profile'"
 
 # In a moment, we're going to call 'drush rr' which will clear all caches at
 # the very end. Unfortunately, this will try to clear some new cache tables that
 # haven't been created yet.
 for CACHE_TABLE in $NEW_CACHE_TABLES; do
-  $DRUSH $ALIAS sqlq "CREATE TABLE $CACHE_TABLE ( cid int )"
+  drush_sqlq "CREATE TABLE $CACHE_TABLE ( cid int )"
 done
 
 # Clear the code registry and all caches so Drupal can find the new locations
 # of all modules.
 $DRUSH $ALIAS rr
 
-$DRUSH $ALIAS sqlq "UPDATE system SET status = 1, schema_version = 0 WHERE name = 'openberkeley'"
+drush_sqlq "UPDATE system SET status = 1, schema_version = 0 WHERE name = 'openberkeley'"
 
 # Drop the new cache tables so they can be created for real in the updates.
 for CACHE_TABLE in $NEW_CACHE_TABLES; do
-  $DRUSH $ALIAS sqlq "DROP TABLE $CACHE_TABLE"
+  drush_sqlq "DROP TABLE $CACHE_TABLE"
 done
 
 # Run the update functions.
