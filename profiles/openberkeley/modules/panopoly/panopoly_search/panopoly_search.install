@@ -46,18 +46,27 @@ function panopoly_search_update_7001(&$sandbox) {
  */
 function panopoly_search_update_7002(&$sandbox) {
 
+  /*
   // If we are running on Pantheon...
   if (variable_get('pantheon_tier')) {
 
     // Enable Pantheon's Search Module
     module_enable(array('pantheon_apachesolr'));
 
-    // Load the Solr PHP Client Library
-    _search_api_solr_autoload('Apache_Solr_Service');
-    _search_api_solr_autoload('Apache_Solr_HttpTransport_Abstract');
+    // Detect if we are using search_api_solr 1.0-rc3 or lower, which used the
+    // SolrPhpClient library to contact the SOLR server.
+    if (function_exists('_search_api_solr_autoload')) {
+      // Load the Solr PHP Client Library
+      _search_api_solr_autoload('Apache_Solr_Service');
+      _search_api_solr_autoload('Apache_Solr_HttpTransport_Abstract');
+    }
 
     // Push Pantheon's Search API Schema
     $schema_uri = drupal_get_path('module', 'search_api_solr') . '/schema.xml';
+    if (!file_exists($schema_uri)) {
+      // The location of the file with search_api_solr 1.0-rc3 or later.
+      $schema_uri = drupal_get_path('module', 'search_api_solr') . '/solr-conf/3.x/schema.xml';
+    }
     pantheon_apachesolr_post_schema_exec($schema_uri);
 
     // Enable Panopoly's Solr Server and Solr Index
@@ -73,6 +82,7 @@ function panopoly_search_update_7002(&$sandbox) {
 
     return t('Panopoly has been configured to use Pantheon\'s Solr Service');
   }
+  */
 
   return ('Panopoly was *not* configured to use Pantheon\'s Solr Service since you are not running on Pantheon');
 }
@@ -97,11 +107,16 @@ function panopoly_search_update_7003(&$sandbox) {
 function panopoly_search_update_7004(&$sandbox) {
 
   // If we are running on Pantheon...
+  /*
   if (variable_get('pantheon_tier')) {
 
-    // Load the Solr PHP Client Library
-    _search_api_solr_autoload('Apache_Solr_Service');
-    _search_api_solr_autoload('Apache_Solr_HttpTransport_Abstract');
+    // Detect if we are using search_api_solr 1.0-rc3 or lower, which used the
+    // SolrPhpClient library to contact the SOLR server.
+    if (function_exists('_search_api_solr_autoload')) {
+      // Load the Solr PHP Client Library
+      _search_api_solr_autoload('Apache_Solr_Service');
+      _search_api_solr_autoload('Apache_Solr_HttpTransport_Abstract');
+    }
 
     // Disable Panopoly's Solr Server and Solr Index
     require_once(drupal_get_path('module', 'search_api') . '/search_api.admin.inc');
@@ -112,4 +127,5 @@ function panopoly_search_update_7004(&$sandbox) {
 
     return t('Panopoly\'s Search API Solr index has been temporarily disabled. Search API DB will now be used for faceted search results.');
   }
+  */
 }

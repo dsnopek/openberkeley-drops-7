@@ -12,6 +12,10 @@ fi
 
 DRUSH=${DRUSH:-drush}
 
+# New cache tables. There's known issues with clearing caches before a new cache
+# table can get created, and we do some magic below to work around them.
+NEW_CACHE_TABLES="cache_panels cache_search_api_solr cache_entity_fieldable_panels_pane"
+
 # Pantheon has an 'input screener' on what it allows you to do over SSH, and 
 # using 'drush sqlq' runs afoul of it! Here is some hyper-magic to allow us to
 # execute SQL on Patheon (and locally).
@@ -37,20 +41,28 @@ drush_sqlq "UPDATE variable SET value = 's:12:\"openberkeley\";' WHERE name = 'i
 # the very end. Unfortunately, this will try to clear some new cache tables that
 # haven't been created yet.
 for CACHE_TABLE in $NEW_CACHE_TABLES; do
-  drush_sqlq "CREATE TABLE $CACHE_TABLE ( cid int )"
+  drush_sqlq "CREATE TABLE $CACHE_TABLE ( cid VARCHAR(255) NOT NULL PRIMARY KEY, data LONGBLOB, expire INT NOT NULL DEFAULT 0, created INT NOT NULL DEFAULT 0, serialized SMALLINT NOT NULL DEFAULT 0 )"
 done
 
 # Clear the code registry and all caches so Drupal can find the new locations
 # of all modules.
 $DRUSH $ALIAS rr
 
-drush_sqlq "UPDATE system SET status = 1, schema_version = 0 WHERE name = 'openberkeley'"
-
 # Drop the new cache tables so they can be created for real in the updates.
 for CACHE_TABLE in $NEW_CACHE_TABLES; do
   drush_sqlq "DROP TABLE $CACHE_TABLE"
 done
 
+# This is necessary to get the openberkely_update_N() functions to run!
+drush_sqlq "UPDATE system SET status = 1, schema_version = 0 WHERE name = 'openberkeley'"
+
 # Run the update functions.
 $DRUSH $ALIAS updb -y
+
+# And... run them again! When something fails (which happens some percentage of
+# the time on Pantheon), running again will re-run those failures.
+$DRUSH $ALIAS updb -y
+
+# Revert all Features.
+$DRUSH $ALIAS fra -y
 

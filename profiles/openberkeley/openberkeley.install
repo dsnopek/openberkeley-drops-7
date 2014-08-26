@@ -97,6 +97,10 @@ function _openberkeley_install_rename_fields($fields, $drop_first = FALSE) {
     );
     // Iterate through tables to be redefined and renamed.
     foreach ($tables as $old_table => $new_table) {
+      // Skip if the $old_table doesn't exist.
+      if (!db_table_exists($old_table)) {
+        continue;
+      }
       // Iterate through the field's columns. For example, a 'text' field will
       // have columns 'value' and 'format'.
       foreach ($old_field['columns'] as $column_name => $column_definition) {
@@ -129,6 +133,17 @@ function _openberkeley_install_rename_fields($fields, $drop_first = FALSE) {
 }
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openberkeley_update_dependencies() {
+  $deps = array();
+  $deps['openberkeley'][7002] = array(
+    'panels' => 7303,
+  );
+  return $deps;
+}
+
+/**
  * Update Panopoly 1.0-beta4 sites to something roughly pre-0.1.
  */
 function openberkeley_update_7001() {
@@ -149,16 +164,18 @@ function openberkeley_update_7002() {
   
   // Enable all the new features.
   module_enable(array(
+    // Normal modules.
+    'features_override',
+    'admin_menu_toolbar',
+    'admin_views',
     // Features.
     'openberkeley_base',
     'openberkeley_core_override',
-    'openberkeley_media',
-    'openberkeley_pages',
-    'openberkeley_theme',
     'openberkeley_wysiwyg_override',
+    'openberkeley_pages',
+    //'openberkeley_media',
+    //'openberkeley_theme',
     'openberkeley_admin',
-    // Normal modules.
-    'admin_menu_toolbar',
   ));
 
   // Convert all pages from 'panopoly_page' to 'openberkeley_content_page'.
