@@ -139,6 +139,7 @@ function openberkeley_update_dependencies() {
   $deps = array();
   $deps['openberkeley'][7002] = array(
     'panels' => 7303,
+    'fieldable_panels_panes' => 7107,
   );
   return $deps;
 }
