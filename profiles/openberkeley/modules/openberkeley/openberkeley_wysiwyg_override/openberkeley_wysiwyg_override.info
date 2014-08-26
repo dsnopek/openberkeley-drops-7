@@ -7,6 +7,7 @@ project = openberkeley_wysiwyg_override
 dependencies[] = features
 dependencies[] = filter
 dependencies[] = media_wysiwyg
+dependencies[] = openberkeley_base
 dependencies[] = panopoly_wysiwyg
 dependencies[] = pathologic
 dependencies[] = wysiwyg

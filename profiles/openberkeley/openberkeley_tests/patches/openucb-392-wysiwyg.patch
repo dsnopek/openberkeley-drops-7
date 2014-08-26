@@ -1,0 +1,28 @@
+--- a/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/wysiwyg.feature
++++ b/profiles/openberkeley/openberkeley_tests/behat/features/panopoly/wysiwyg.feature
+@@ -31,7 +31,6 @@
+       | Action                        | Element    | Property        | Value        |
+       | Bold                          | strong     |                 |              |
+       | Italic                        | em         |                 |              |
+-      | Strikethrough                 | span       | text-decoration | line-through |
+       | Insert/Remove Bulleted List   | ul > li    |                 |              |
+       | Insert/Remove Numbered List   | ol > li    |                 |              |
+       | Block Quote                   | blockquote |                 |              |
+@@ -50,8 +49,6 @@
+
+     Examples:
+       | Action          | Element | Property        | Value     |
+-      | Underline       | span    | text-decoration | underline |
+-      | Align Full      | p       | text-align      | justify   |
+       | Increase Indent | p       | padding-left    | 30px      |
+
+   # Because we start over with the Chrome tests, we need to do this again, but
+@@ -85,7 +82,7 @@
+     # The media style selector.
+     When I wait 2 seconds
+       And I switch to the frame "mediaStyleSelector"
+-      And I select "Quarter Size" from "format"
++      And I select "Width 200" from "format"
+     Then the "Alt Text" field should contain "Sample Alt text"
+       And the "Title Text" field should contain "Sample Title text"
+       And I click the fake "Submit" button

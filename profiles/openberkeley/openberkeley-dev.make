@@ -46,6 +46,11 @@ projects[openberkeley_core_override][subdir] = openberkeley
 projects[openberkeley_core_override][download][type] = git
 projects[openberkeley_core_override][download][url] = git://github.com/ucb-ist-drupal/openberkeley_core_override.git
 
+projects[openberkeley_media][type] = module
+projects[openberkeley_media][subdir] = openberkeley
+projects[openberkeley_media][download][type] = git
+projects[openberkeley_media][download][url] = git://github.com/ucb-ist-drupal/openberkeley_media.git
+
 projects[openberkeley_starter][type] = module
 projects[openberkeley_starter][subdir] = openberkeley
 projects[openberkeley_starter][download][type] = git
@@ -79,10 +84,6 @@ projects[berkeley][download][tag] = 7.x-1.0-alpha11
 ; ******************************
 ; ***** OB not in Panopoly *****
 
-; Backup and Migrate - Used for local backups
-projects[backup_migrate][version] = 2.7
-projects[backup_migrate][subdir] = contrib
-
 ; Bundle Copy - Used for exporting content types in D7
 projects[bundle_copy][version] = 1.1
 projects[bundle_copy][subdir] = contrib
@@ -105,8 +106,9 @@ projects[email][version] = 1.2
 projects[email][subdir] = contrib
 
 ; Entity View Mode - Used for View Modes (image styles)
-projects[entity_view_mode][version] = 1.0-rc1
-projects[entity_view_mode][subdir] = contrib
+; TODO: delete after testing openberkeley_media
+; projects[entity_view_mode][version] = 1.0-rc1
+; projects[entity_view_mode][subdir] = contrib
 
 ; External Link - extlink and mailto icons and behavior
 projects[extlink][version] = 1.13
@@ -124,10 +126,6 @@ projects[extlink][subdir] = contrib
 projects[features_override][version] = 2.0-rc1
 projects[features_override][subdir] = contrib
 
-; Google Analytics
-projects[google_analytics][version] = 1.4
-projects[google_analytics][subdir] = contrib
-
 ; Nice Menus - used with Berkeley Theme
 projects[nice_menus][version] = 2.5
 projects[nice_menus][subdir] = contrib
@@ -143,10 +141,6 @@ projects[security_review][subdir] = contrib
 ; SMTP
 projects[smtp][version] = 1.0
 projects[smtp][subdir] = contrib
-
-; Total Control - Used for Site Builder dashboard
-projects[total_control][version] = 2.4
-projects[total_control][subdir] = contrib
 
 ; Zen - Base theme for Berkeley Theme
 projects[zen][version] = 5.5
@@ -258,3 +252,5 @@ projects[panopoly_test][download][branch] = 7.x-1.x
 projects[panopoly_test][patch][2316067] = http://drupal.org/files/issues/panopoly-test-remove-pages-dependency-2316067-1.patch
 ; Patch to fix case sensitive text in live preview test.
 projects[panopoly_test][patch][2316157] = http://drupal.org/files/issues/panopoly-case-sensitive-live-preview-2316157-1.patch
+; Patch to fix dependency on private file variable
+projects[panopoly_test][patch][2268641] = http://www.drupal.org/files/issues/panopoly_test-private-files-2268641-13.patch

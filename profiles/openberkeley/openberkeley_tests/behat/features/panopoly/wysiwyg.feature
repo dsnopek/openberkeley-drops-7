@@ -31,7 +31,6 @@ Feature: Use rich text editor
       | Action                        | Element    | Property        | Value        |
       | Bold                          | strong     |                 |              |
       | Italic                        | em         |                 |              |
-      | Strikethrough                 | span       | text-decoration | line-through |
       | Insert/Remove Bulleted List   | ul > li    |                 |              |
       | Insert/Remove Numbered List   | ol > li    |                 |              |
       | Block Quote                   | blockquote |                 |              |
@@ -50,7 +49,6 @@ Feature: Use rich text editor
 
     Examples:
       | Action          | Element | Property        | Value     |
-      | Align Full      | p       | text-align      | justify   |
       | Increase Indent | p       | padding-left    | 30px      |
 
   # Because we start over with the Chrome tests, we need to do this again, but
@@ -62,7 +60,7 @@ Feature: Use rich text editor
 
   # TODO: About 10% of the time this test will hang with Firefox, so for now,
   # we will run in Chrome only on Travis-CI to get consistent builds.
-  @api @javascript @chrome @panopoly_wysiwyg @panopoly_wysiwyg_image @panopoly_images
+  @api @javascript @chrome @panopoly_wysiwyg @panopoly_wysiwyg_image @panopoly_images @drupal_private_files
   Scenario: Add an image with format and alt text
     When I type "Testing body" in the "edit-body-und-0-value" WYSIWYG editor
     # Upload the file.
@@ -84,7 +82,7 @@ Feature: Use rich text editor
     # The media style selector.
     When I wait 2 seconds
       And I switch to the frame "mediaStyleSelector"
-      And I select "Quarter Size" from "format"
+      And I select "Width 200" from "format"
     Then the "Alt Text" field should contain "Sample Alt text"
       And the "Title Text" field should contain "Sample Title text"
       And I click the fake "Submit" button
@@ -98,7 +96,7 @@ Feature: Use rich text editor
 
   # TODO: About 10% of the time this test will hang with Firefox, so for now,
   # we will run in Chrome only on Travis-CI to get consistent builds.
-  @api @javascript @chrome @panopoly_wysiwyg @panopoly_wysiwyg_image @panopoly_images
+  @api @javascript @chrome @panopoly_wysiwyg @panopoly_wysiwyg_image @panopoly_images @drupal_private_files
   Scenario: The second alt/title text sticks
     When I type "Testing body" in the "edit-body-und-0-value" WYSIWYG editor
     When I click the "Add media" button in the "edit-body-und-0-value" WYSIWYG editor
@@ -141,7 +139,7 @@ Feature: Use rich text editor
 
   # TODO: About 10% of the time this test will hang with Firefox, so for now,
   # we will run in Chrome only on Travis-CI to get consistent builds.
-  @api @javascript @chrome @panopoly_wysiwyg @panopoly_wysiwyg_image @panopoly_images
+  @api @javascript @chrome @panopoly_wysiwyg @panopoly_wysiwyg_image @panopoly_images @drupal_private_files
   Scenario: HTML entities in alt/title text get decoded/encoded correctly
     When I type "Testing body" in the "edit-body-und-0-value" WYSIWYG editor
     When I click the "Add media" button in the "edit-body-und-0-value" WYSIWYG editor
