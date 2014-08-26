@@ -154,6 +154,8 @@ function openberkeley_update_7001() {
  * Update Open Berkeley pre-0.1 sites to Open Berkeley 0.1.
  */
 function openberkeley_update_7002() {
+  global $conf;
+
   // Disable Panopoly modules we will conflict with. These should already be
   // removed by our pre-upgrade.sh script, but we're doing this again here
   // just in case.
@@ -161,13 +163,14 @@ function openberkeley_update_7002() {
     'panopoly_admin',
     'panopoly_pages',
   ));
-  
-  // Enable all the new features.
+
+  // Set variable to skip creating starter content.
+  $conf['openberkeley_skip_starter_content'] = TRUE;
+
+  // Enable all the new modules.
   module_enable(array(
     // Normal modules.
-    'features_override',
     'admin_menu_toolbar',
-    'admin_views',
     // Features.
     'openberkeley_base',
     'openberkeley_core_override',
@@ -192,4 +195,7 @@ function openberkeley_update_7002() {
     'field_source' => 'field_openberkeley_news_source',
     'field_publication_date' => 'field_openberkeley_news_pdate',
   ), TRUE);
+
+  // Updates for Open Berkeley FAQ
+  module_enable(array('openberkeley_faq'));
 }
