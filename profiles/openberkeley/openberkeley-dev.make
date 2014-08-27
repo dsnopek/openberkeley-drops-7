@@ -5,11 +5,6 @@ core = 7.x
 ;;; UCB Custom Modules ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-projects[ucberkeley_envconf][type] = module
-projects[ucberkeley_envconf][subdir] = ucb
-projects[ucberkeley_envconf][download][type] = file
-projects[ucberkeley_envconf][download][url] = https://github.com/ucb-ist-drupal/ucberkeley_envconf-7/releases/download/7.x-2.0-alpha1/ucberkeley_envconf-7.x-2.0-alpha1.tar.gz
-
 projects[ucberkeley_cas][type] = module
 projects[ucberkeley_cas][subdir] = ucb
 projects[ucberkeley_cas][download][type] = file
