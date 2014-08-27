@@ -67,6 +67,13 @@ $DRUSH $DRUSH_OPTS $ALIAS updb -y
 # Revert all Features.
 $DRUSH $DRUSH_OPTS $ALIAS fra -y
 
+# Now that we've upgraded, we can remove the 'mediafield' module - it was used
+# by panopoly_widgets in older versions. We need to run cron a couple times to
+# get the field actually purged.
+$DRUSH $DRUSH_OPTS $ALIAS cron
+$DRUSH $DRUSH_OPTS $ALIAS cron
+$DRUSH $DRUSH_OPTS $ALIAS dis -y mediafield
+
 # One final cache clear to hopefully fix the issue where /admin/content
 # is giving 'Page not found' and any other cache-y issuse.
 $DRUSH $DRUSH_OPTS $ALIAS cc all
