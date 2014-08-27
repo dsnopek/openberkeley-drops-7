@@ -13,7 +13,7 @@ fi
 DRUSH=${DRUSH:-drush}
 DRUSH_OPTS=${DRUSH_OPTS:---strict=0}
 
-OLD_MODULES="panopoly_demo panopoly_admin panopoly_pages entity_view_mode better_formats conditional_styles views_slideshow_cycle views_slideshow"
+OLD_MODULES="panopoly_demo panopoly_admin panopoly_pages entity_view_mode better_formats conditional_styles views_slideshow_cycle views_slideshow mediafield ucb_openberkeley"
 
 for MODULE in $OLD_MODULES; do
   $DRUSH $DRUSH_OPTS $ALIAS dis -y $MODULE

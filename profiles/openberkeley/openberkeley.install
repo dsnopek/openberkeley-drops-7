@@ -154,10 +154,8 @@ function openberkeley_update_dependencies() {
  * Update Panopoly 1.0-beta4 sites to something roughly pre-0.1.
  */
 function openberkeley_update_7001() {
-  module_enable(array(
-    'ucberkeley_cas',
-    'ucberkeley_envconf',
-  ));
+  // So far, there's really nothing that we need to do Panopoly 1.0-beta4
+  // sites that we don't also need to do to Open Berkeley pre-0.1 sites.
 }
 
 /**
@@ -181,7 +179,10 @@ function openberkeley_update_7002() {
   module_enable(array(
     // Normal modules.
     'admin_menu_toolbar',
+    'save_draft',
     // Features.
+    'ucberkeley_cas',
+    'ucberkeley_envconf',
     'openberkeley_base',
     'openberkeley_core_override',
     'openberkeley_wysiwyg_override',
@@ -211,4 +212,7 @@ function openberkeley_update_7002() {
 
   // Updates for Open Berkeley FAQ
   module_enable(array('openberkeley_faq'));
+  _openberkeley_install_rename_fields(array(
+    'field_category' => 'field_openberkeley_faq_cat',
+  ), TRUE);
 }
