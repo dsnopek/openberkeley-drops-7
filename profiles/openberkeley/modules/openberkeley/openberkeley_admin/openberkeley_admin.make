@@ -30,6 +30,10 @@ projects[redirect][patch][1796596] = https://www.drupal.org/files/redirect-detec
 projects[total_control][version] = 2.4
 projects[total_control][subdir] = contrib
 
-;projects[ucberkeley_envconf][version] =
-;projects[ucberkeley_envconf][subdir] = contrib
+projects[ucberkeley_envconf][type] = module
+projects[ucberkeley_envconf][subdir] = ucb
+projects[ucberkeley_envconf][download][type] = file
+projects[ucberkeley_envconf][download][url] = https://github.com/ucb-ist-drupal/ucberkeley_envconf-7/releases/download/7.x-2.0-alpha1/ucberkeley_envconf-7.x-2.0-alpha1.tar.gz
+
+
 
