@@ -18,6 +18,7 @@ dependencies[] = panopoly_core
 dependencies[] = pathauto
 dependencies[] = redirect
 dependencies[] = total_control
+dependencies[] = ucberkeley_envconf
 features[ctools][] = strongarm:strongarm:1
 features[defaultconfig][] = strongarm:googleanalytics_domain_mode
 features[defaultconfig][] = strongarm:googleanalytics_roles
