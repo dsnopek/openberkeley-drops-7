@@ -24,6 +24,7 @@ features[defaultconfig][] = strongarm:googleanalytics_domain_mode
 features[defaultconfig][] = strongarm:googleanalytics_roles
 features[defaultconfig][] = strongarm:googleanalytics_site_search
 features[defaultconfig][] = strongarm:googleanalytics_tracker_anonymizeip
+features[defaultconfig][] = strongarm:googleanalytics_visibility_roles
 features[defaultconfig][] = strongarm:linkchecker_ignore_response_codes
 features[defaultconfig][] = strongarm:total_control_auto_pages
 features[defaultconfig][] = strongarm:total_control_auto_panels

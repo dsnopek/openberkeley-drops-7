@@ -288,7 +288,7 @@ class TestSubContext extends BehatContext implements DrupalSubContextInterface {
 
       // Set flag for later cleanup.
       $this->private_path_overridden = TRUE;
-
+      
       // Create and setup the private path.
       $file_private_path = $file_public_path . '/' . 'private';
       variable_set('file_private_path', $file_private_path);

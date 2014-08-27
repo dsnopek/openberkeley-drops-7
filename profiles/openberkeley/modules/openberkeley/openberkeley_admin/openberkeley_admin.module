@@ -244,8 +244,8 @@ function openberkeley_admin_block_other_administration_content() {
   global $theme;
 
   $content = '<ul>';
-  $content .= '<li>' . l(ucfirst($theme) . " Theme Settings", "admin/appearance/settings/$theme") . '</li>';
-  $content .= '<li>' . l("Edit Site Information", "admin/config/system/site-information") . '</li>';
+  $content .= '<li>' . l(ucfirst($theme) . " Theme Settings", "admin/appearance/settings/$theme", array('query' => array('destination' => 'admin/dashboard'))) . '</li>';
+  $content .= '<li>' . l("Edit Site Information", "admin/config/system/site-information", array('query' => array('destination' => 'admin/dashboard'))) . '</li>';
   // Fetch a list of regions for the current theme.
   // $all_regions = system_region_list($theme);
   $footer_regions = array(
@@ -263,7 +263,7 @@ function openberkeley_admin_block_other_administration_content() {
     foreach ($bf as $bf_block) {
       $delta = $bf_block->delta;
       $subject = $bf_block->subject;
-      $content .= '<li>' . l("Edit Footer: $subject", "admin/structure/block/manage/block/$delta/configure?destination=admin/dashboard") . '</li>';
+      $content .= '<li>' . l("Edit Footer: $subject", "admin/structure/block/manage/block/$delta/configure", array('query' => array('destination' => 'admin/dashboard'))) . '</li>';
     }
   }
   $content .= '</ul>';

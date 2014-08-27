@@ -71,4 +71,23 @@ function openberkeley_base_install() {
       ->fields($block)
       ->execute();
   }
+
+  /*
+   * Panopoly (panopoly_pages.module, panopoly_core.module) sets a bunch of
+   * panelizer permissions for editor which are not
+   * appropriate for Open Berkeley. This revokes any role containing "administer
+   * panelizer" for which editor has access. The thinking is that it's possible
+   * that panopoly could add other "administer panelizer" permissions in the
+   * future.  If panopoly grants roles outside of "administer panelizer*" we
+   * can adapt this.
+   */
+  $editor = user_role_load_by_name('editor');
+  $editor_roles = user_role_permissions(array($editor->rid => 'editor'));
+  foreach ($editor_roles as $roles) {
+    while (list($role, $value) = each($roles)) {
+      if ((strpos($role, "administer panelizer") !== FALSE) && ($value === TRUE)) {
+        user_role_revoke_permissions($editor->rid, array($role));
+      }
+    }
+  }
 }
