@@ -180,9 +180,9 @@ function openberkeley_update_7002() {
     // Normal modules.
     'admin_menu_toolbar',
     'save_draft',
-    // Features.
+    // UC Berkeley modules.
     'ucberkeley_cas',
-    'ucberkeley_envconf',
+    // Open Berkeley modules.
     'openberkeley_base',
     'openberkeley_core_override',
     'openberkeley_wysiwyg_override',
