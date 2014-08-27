@@ -11,6 +11,7 @@ if [ x$ALIAS = x ]; then
 fi
 
 DRUSH=${DRUSH:-drush}
+DRUSH_OPTS=${DRUSH_OPTS:---strict=0}
 
 # New cache tables. There's known issues with clearing caches before a new cache
 # table can get created, and we do some magic below to work around them.
@@ -20,7 +21,7 @@ NEW_CACHE_TABLES="cache_panels cache_search_api_solr cache_entity_fieldable_pane
 # using 'drush sqlq' runs afoul of it! Here is some hyper-magic to allow us to
 # execute SQL on Patheon (and locally).
 drush_sqlq() {
-  local MYSQL_CONNECT=`$DRUSH $ALIAS sql-connect`
+  local MYSQL_CONNECT=`$DRUSH $DRUSH_OPTS $ALIAS sql-connect`
   echo "$1" | $MYSQL_CONNECT
 }
 
@@ -30,7 +31,7 @@ drush_sqlq() {
 #
 #   https://github.com/pantheon-systems/terminus
 #
-$DRUSH pantheon-aliases
+$DRUSH $DRUSH_OPTS pantheon-aliases
 
 # Switch profile from 'panopoly' to 'openberkeley'. Unfortunately, drush won't
 # be able to bootstrap Drupal ('drush vset' will error out) so we have to set
@@ -46,7 +47,7 @@ done
 
 # Clear the code registry and all caches so Drupal can find the new locations
 # of all modules.
-$DRUSH $ALIAS rr
+$DRUSH $DRUSH_OPTS $ALIAS rr
 
 # Drop the new cache tables so they can be created for real in the updates.
 for CACHE_TABLE in $NEW_CACHE_TABLES; do
@@ -57,14 +58,14 @@ done
 drush_sqlq "UPDATE system SET status = 1, schema_version = 0 WHERE name = 'openberkeley'"
 
 # Run the update functions.
-$DRUSH $ALIAS updb -y
+$DRUSH $DRUSH_OPTS $ALIAS updb -y
 
 # And... run them again! When something fails (which happens some percentage of
 # the time on Pantheon), running again will re-run those failures.
-$DRUSH $ALIAS updb -y
+$DRUSH $DRUSH_OPTS $ALIAS updb -y
 
 # Revert all Features.
-$DRUSH $ALIAS fra -y
+$DRUSH $DRUSH_OPTS $ALIAS fra -y
 
 # Tell the user what to do next.
 echo

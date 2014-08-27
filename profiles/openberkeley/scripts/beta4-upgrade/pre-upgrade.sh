@@ -11,14 +11,15 @@ if [ x$ALIAS = x ]; then
 fi
 
 DRUSH=${DRUSH:-drush}
+DRUSH_OPTS=${DRUSH_OPTS:---strict=0}
 
 OLD_MODULES="panopoly_demo panopoly_admin panopoly_pages entity_view_mode better_formats conditional_styles views_slideshow_cycle views_slideshow"
 
 for MODULE in $OLD_MODULES; do
-  $DRUSH $ALIAS dis -y $MODULE
+  $DRUSH $DRUSH_OPTS $ALIAS dis -y $MODULE
 done
 
 for MODULE in $OLD_MODULES; do
-  $DRUSH $ALIAS pm-uninstall -y $MODULE
+  $DRUSH $DRUSH_OPTS $ALIAS pm-uninstall -y $MODULE
 done
 
