@@ -66,3 +66,11 @@ $DRUSH $ALIAS updb -y
 # Revert all Features.
 $DRUSH $ALIAS fra -y
 
+# Tell the user what to do next.
+echo
+echo "Enabling panopoly_search via Drush fails because it can't contact the"
+echo "SOLR server (it's on the internal Pantheon network)."
+echo
+echo "So, you need to login to the site and enable 'Panopoly Search' via the UI"
+echo
+

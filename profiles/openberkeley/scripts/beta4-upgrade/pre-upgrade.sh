@@ -12,7 +12,7 @@ fi
 
 DRUSH=${DRUSH:-drush}
 
-OLD_MODULES="panopoly_admin panopoly_pages entity_view_mode better_formats conditional_styles views_slideshow_cycle views_slideshow"
+OLD_MODULES="panopoly_demo panopoly_admin panopoly_pages entity_view_mode better_formats conditional_styles views_slideshow_cycle views_slideshow"
 
 for MODULE in $OLD_MODULES; do
   $DRUSH $ALIAS dis -y $MODULE

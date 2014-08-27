@@ -54,6 +54,12 @@ function _openberkeley_install_change_input_format($old_format, $new_format) {
     }
   }
 
+  // Change the format on all blocks.
+  db_update('block_custom')
+    ->fields(array('format' => $new_format))
+    ->condition('format', $old_format)
+    ->execute();
+
   // Delete the format afterward.
   db_delete('filter')
     ->condition('format', $old_format)
@@ -148,7 +154,10 @@ function openberkeley_update_dependencies() {
  * Update Panopoly 1.0-beta4 sites to something roughly pre-0.1.
  */
 function openberkeley_update_7001() {
-  // TODO: I'm not really sure what needs updating in the -beta4 sites yet.
+  module_enable(array(
+    'ucberkeley_cas',
+    'ucberkeley_envconf',
+  ));
 }
 
 /**
@@ -177,9 +186,12 @@ function openberkeley_update_7002() {
     'openberkeley_core_override',
     'openberkeley_wysiwyg_override',
     'openberkeley_pages',
-    //'openberkeley_media',
+    'openberkeley_media',
     //'openberkeley_theme',
     'openberkeley_admin',
+    // Fails on Pantheon because we can't reach the SOLR server via Drush. :-/
+    // We'll have to enable this module via the UI after the upgrade!
+    //'panopoly_search',
   ));
 
   // Convert all pages from 'panopoly_page' to 'openberkeley_content_page'.
