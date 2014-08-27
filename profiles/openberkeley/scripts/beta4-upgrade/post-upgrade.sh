@@ -67,6 +67,10 @@ $DRUSH $DRUSH_OPTS $ALIAS updb -y
 # Revert all Features.
 $DRUSH $DRUSH_OPTS $ALIAS fra -y
 
+# One final cache clear to hopefully fix the issue where /admin/content
+# is giving 'Page not found' and any other cache-y issuse.
+$DRUSH $DRUSH_OPTS $ALIAS cc all
+
 # Tell the user what to do next.
 echo
 echo "Enabling panopoly_search via Drush fails because it can't contact the"
