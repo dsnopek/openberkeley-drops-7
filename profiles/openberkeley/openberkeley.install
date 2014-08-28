@@ -138,6 +138,46 @@ function _openberkeley_install_rename_fields($fields, $drop_first = FALSE) {
   }
 }
 
+
+/**
+ * A helper function to convert 'Existing node' panes to 'Content item' panes.
+ */
+function _openberkeley_update_7002_convert_node_panes() {
+  // We're going to load the panes directly from the 'panels_pane' table and
+  // replace them with the new pane, reusing the same IDs and everything.
+  // Don't try this at home, kids!
+  $result = db_query("SELECT * FROM {panels_pane} WHERE type = 'node' AND subtype = 'node'");
+  $serialized_fields = array('access', 'configuration', 'cache', 'style', 'css', 'extras', 'locks');
+  foreach ($result as $pane) {
+    // Unserialize all the serialized fields.
+    foreach ($serialized_fields as $field) {
+      $pane->$field = unserialize($pane->$field);
+    }
+    // Load the original node, so we can get it's title.
+    if ($node = node_load($pane->configuration['nid'])) {
+      $pane->type = 'views_panes';
+      $pane->subtype = 'panopoly_widgets_general_content-piece_of_content';
+      $pane->configuration = array(
+        'fields_override' => array(
+          'field_featured_image' => TRUE,
+          'title' => TRUE,
+          'created' => TRUE,
+          'name' => TRUE,
+        ),
+        'exposed' => array(
+          'title' => $node->title,
+          'type' => 'All',
+        ),
+        'view_settings' => 'nodes',
+        'header_type' => 'none',
+        'view_mode' => $pane->configuration['build_mode'],
+      );
+
+      drupal_write_record('panels_pane', $pane, array('pid'));
+    }
+  }
+}
+
 /**
  * Implements hook_update_dependencies().
  */
@@ -193,7 +233,7 @@ function openberkeley_update_7002() {
     'openberkeley_wysiwyg_override',
     'openberkeley_pages',
     'openberkeley_media',
-    'openberkeley_theme',
+    //'openberkeley_theme',
     'openberkeley_admin',
     // Fails on Pantheon because we can't reach the SOLR server via Drush. :-/
     // We'll have to enable this module via the UI after the upgrade!
@@ -235,4 +275,7 @@ function openberkeley_update_7002() {
     'administer panelizer node openberkeley_landing_page layout' => TRUE,
     'administer panelizer node openberkeley_landing_page content' => TRUE,
   ));
+
+  // Convert 'Existing content' panes to 'Content item' panes.
+  _openberkeley_update_7002_convert_node_panes();
 }
