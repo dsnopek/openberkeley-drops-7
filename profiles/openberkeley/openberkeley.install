@@ -180,6 +180,7 @@ function openberkeley_update_7002() {
     // Normal modules.
     'admin_menu_toolbar',
     'save_draft',
+    'shortcut',
     // UC Berkeley modules.
     'ucberkeley_cas',
     // Open Berkeley modules.
@@ -215,4 +216,19 @@ function openberkeley_update_7002() {
   _openberkeley_install_rename_fields(array(
     'field_category' => 'field_openberkeley_faq_cat',
   ), TRUE);
+
+  // Assign all permissions to the 'administrator' role.
+  $admin_role = user_role_load_by_name("administrator");
+  $permissions = array_keys(module_invoke_all('permission'));
+  user_role_grant_permissions($admin_role->rid, $permissions);
+
+  // Update builder permissions to match.
+  $builder_role = user_role_load_by_name("builder");
+  user_role_change_permissions($builder_role->rid, array(
+    'administer redirects' => FALSE,
+    'administer panelizer node openberkeley_content_page layout' => TRUE,
+    'administer panelizer node openberkeley_content_page content' => TRUE,
+    'administer panelizer node openberkeley_landing_page layout' => TRUE,
+    'administer panelizer node openberkeley_landing_page content' => TRUE,
+  ));
 }
