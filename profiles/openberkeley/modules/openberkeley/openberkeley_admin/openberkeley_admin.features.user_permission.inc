@@ -83,6 +83,17 @@ function openberkeley_admin_user_default_permissions() {
     'module' => 'openberkeley_admin',
   );
 
+  // Exported permission: 'access dashboard categories tab'.
+  $permissions['access dashboard categories tab'] = array(
+    'name' => 'access dashboard categories tab',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+      'editor' => 'editor',
+    ),
+    'module' => 'openberkeley_admin',
+  );
+
   // Exported permission: 'access dashboard content overview'.
   $permissions['access dashboard content overview'] = array(
     'name' => 'access dashboard content overview',
@@ -95,6 +106,17 @@ function openberkeley_admin_user_default_permissions() {
     'module' => 'openberkeley_admin',
   );
 
+  // Exported permission: 'access dashboard content tab'.
+  $permissions['access dashboard content tab'] = array(
+    'name' => 'access dashboard content tab',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+      'editor' => 'editor',
+    ),
+    'module' => 'openberkeley_admin',
+  );
+
   // Exported permission: 'access dashboard create content'.
   $permissions['access dashboard create content'] = array(
     'name' => 'access dashboard create content',
@@ -102,6 +124,17 @@ function openberkeley_admin_user_default_permissions() {
       'administrator' => 'administrator',
       'builder' => 'builder',
       'contributor' => 'contributor',
+      'editor' => 'editor',
+    ),
+    'module' => 'openberkeley_admin',
+  );
+
+  // Exported permission: 'access dashboard files tab'.
+  $permissions['access dashboard files tab'] = array(
+    'name' => 'access dashboard files tab',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
       'editor' => 'editor',
     ),
     'module' => 'openberkeley_admin',
@@ -146,6 +179,7 @@ function openberkeley_admin_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'builder' => 'builder',
+      'editor' => 'editor',
     ),
     'module' => 'openberkeley_admin',
   );
@@ -153,6 +187,16 @@ function openberkeley_admin_user_default_permissions() {
   // Exported permission: 'access dashboard url administration'.
   $permissions['access dashboard url administration'] = array(
     'name' => 'access dashboard url administration',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+    ),
+    'module' => 'openberkeley_admin',
+  );
+
+  // Exported permission: 'access dashboard user accounts tab'.
+  $permissions['access dashboard user accounts tab'] = array(
+    'name' => 'access dashboard user accounts tab',
     'roles' => array(
       'administrator' => 'administrator',
       'builder' => 'builder',
@@ -333,6 +377,7 @@ function openberkeley_admin_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'builder' => 'builder',
+      'contributor' => 'contributor',
       'editor' => 'editor',
     ),
     'module' => 'total_control',

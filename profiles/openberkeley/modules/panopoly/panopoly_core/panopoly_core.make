@@ -10,6 +10,7 @@ projects[ctools][subdir] = contrib
 projects[ctools][patch][2280875] = http://drupal.org/files/issues/ctools-icon-text-renderer-2280875-5.patch
 projects[ctools][patch][581670] = http://drupal.org/files/fix-autocomplete-581670.patch
 projects[ctools][patch][2312505] = http://drupal.org/files/issues/ctools-views-pane-more-link-2312505-1.patch
+projects[ctools][patch][1978378] = http://www.drupal.org/files/ctools-page-title-check-plained-twice-1978378-1.patch
 
 projects[panels][version] = 3.4
 projects[panels][subdir] = contrib
@@ -65,7 +66,7 @@ projects[transliteration][subdir] = contrib
 
 ; Field modules
 
-projects[date][version] = 2.7
+projects[date][version] = 2.8
 projects[date][subdir] = contrib
 
 projects[entityreference][version] = 1.1
@@ -86,7 +87,7 @@ projects[apps][download][branch] = 7.x-1.x
 projects[apps][download][revision] = b9d82b7
 projects[apps][patch][1790902] = http://drupal.org/files/1790902.4-check-last-modified-existing.patch
 
-projects[features][version] = 2.0
+projects[features][version] = 2.2
 projects[features][subdir] = contrib
 
 projects[strongarm][version] = 2.0
@@ -115,6 +116,9 @@ projects[migrate_extras][subdir] = "contrib"
 ; Recommended Modules
 projects[devel][version] = 1.5
 projects[devel][subdir] = contrib
+
+projects[distro_update][version] = 1.0-beta3
+projects[distro_update][subdir] = contrib
 
 projects[uuid][version] = 1.0-alpha5
 projects[uuid][subdir] = contrib

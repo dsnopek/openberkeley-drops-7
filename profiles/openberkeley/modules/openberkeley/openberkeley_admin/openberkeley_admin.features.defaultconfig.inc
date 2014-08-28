@@ -60,6 +60,13 @@ function openberkeley_admin_defaultconfig_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'googleanalytics_visibility_roles';
+  $strongarm->value = '1';
+  $export['googleanalytics_visibility_roles'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'linkchecker_ignore_response_codes';
   $strongarm->value = '200
 206

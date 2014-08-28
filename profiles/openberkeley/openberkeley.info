@@ -57,7 +57,6 @@ dependencies[] = apps
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; UCB - Custom
-dependencies[] = ucberkeley_envconf
 dependencies[] = ucberkeley_cas
 
 ; Open Berkeley Foundation

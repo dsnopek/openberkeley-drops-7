@@ -8,13 +8,13 @@ function openberkeley_admin_install() {
   $filters = 'a:9:{s:11:"compression";s:4:"gzip";s:21:"notify_success_enable";i:0;s:20:"notify_success_email";s:20:"example@berkeley.edu";s:21:"notify_failure_enable";i:0;s:20:"notify_failure_email";s:20:"example@berkeley.edu";s:18:"utils_site_offline";i:0;s:26:"utils_site_offline_message";s:109:"This UC Berkeley site is currently under maintenance. We should be back shortly. Thank you for your patience.";s:17:"utils_description";s:0:"";s:12:"destinations";a:1:{s:2:"db";a:4:{s:14:"exclude_tables";a:0:{}s:13:"nodata_tables";a:19:{s:5:"cache";s:5:"cache";s:16:"cache_admin_menu";s:16:"cache_admin_menu";s:11:"cache_block";s:11:"cache_block";s:15:"cache_bootstrap";s:15:"cache_bootstrap";s:11:"cache_field";s:11:"cache_field";s:12:"cache_filter";s:12:"cache_filter";s:10:"cache_form";s:10:"cache_form";s:11:"cache_image";s:11:"cache_image";s:10:"cache_menu";s:10:"cache_menu";s:10:"cache_page";s:10:"cache_page";s:10:"cache_path";s:10:"cache_path";s:12:"cache_update";s:12:"cache_update";s:11:"cache_views";s:11:"cache_views";s:16:"cache_views_data";s:16:"cache_views_data";s:14:"search_dataset";s:14:"search_dataset";s:12:"search_index";s:12:"search_index";s:12:"search_total";s:12:"search_total";s:8:"sessions";s:8:"sessions";s:8:"watchdog";s:8:"watchdog";}s:17:"utils_lock_tables";i:0;s:13:"use_mysqldump";i:0;}}}';
   db_insert('backup_migrate_profiles')
     ->fields(array(
-        'profile_id' => 'default',
-        'name' => 'Open Berkeley Settings',
-        'filename' => '[site:url-brief]',
-        'append_timestamp' => 1,
-        'timestamp_format' => 'Y-m-d\TH-i-s',
-        'filters' => $filters,
-      ))
+      'profile_id' => 'default',
+      'name' => 'Open Berkeley Settings',
+      'filename' => '[site:url-brief]',
+      'append_timestamp' => 1,
+      'timestamp_format' => 'Y-m-d\TH-i-s',
+      'filters' => $filters,
+    ))
     ->execute();
 }
 
@@ -23,12 +23,13 @@ function openberkeley_admin_install() {
  */
 function openberkeley_admin_enable() {
   /*
-   * If this feature is being enabled manually (not enabled by a .profile) we
-   * need to clear caches so that the Dashboard/Content/Categories/User Accounts
-   * tabs appear at /admin/dashboard after
-   * openberkeley_admin_views_default_views_alter() runs.
-   */
+ * If this feature is being enabled manually (not enabled by a .profile) we
+ * need to clear caches so that the Dashboard/Content/Categories/User Accounts
+ * tabs appear at /admin/dashboard after
+ * openberkeley_admin_views_default_views_alter() runs.
+ */
   drupal_flush_all_caches();
+
 }
 
 /**

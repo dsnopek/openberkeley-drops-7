@@ -35,7 +35,7 @@ class OpenBerkeleyNewsStarterNodePages extends Migration {
     $this->addFieldMapping('field_featured_status')->defaultValue(0);
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('body', 'body');
-    $this->addFieldMapping('body:format')->defaultValue('editor');
+    $this->addFieldMapping('body:format')->defaultValue('panopoly_wysiwyg_text');
     $this->addFieldMapping('field_openberkeley_news_byline', 'byline');
     $this->addFieldMapping('field_openberkeley_news_xlink', 'external link');
     $this->addFieldMapping('field_openberkeley_news_type', 'news type');
