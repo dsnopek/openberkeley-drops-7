@@ -302,7 +302,6 @@ function faq_update_7001() {
 /**
  * Convert old-style detailed questions to new fields
  */
-/*
 function faq_update_7002(&$sandbox) {
 
   define('BATCH_SIZE_7002', '5');  // Number of nodes to update each pass
@@ -394,7 +393,6 @@ function faq_update_7002(&$sandbox) {
 
   return t('Custom field added, @count questions converted into fields.', array('@count' => $sandbox['max']+1));
 }
-*/
 
 //==============================================================
 // Local functions declarations

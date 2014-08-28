@@ -144,8 +144,12 @@ function _openberkeley_install_rename_fields($fields, $drop_first = FALSE) {
 function openberkeley_update_dependencies() {
   $deps = array();
   $deps['openberkeley'][7002] = array(
+    // Make sure new cache tables exist.
     'panels' => 7303,
     'fieldable_panels_panes' => 7107,
+    // We need to run the faq update that copies data into a new field before
+    // we enable openberkeley_faq, which would create the same field.
+    'faq' => 7002,
   );
   return $deps;
 }
