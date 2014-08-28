@@ -35,12 +35,12 @@ class OpenBerkeleyFaqStarterNodePages extends Migration {
     $this->addFieldMapping('field_featured_status')->defaultValue(0);
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('body', 'body');
-    $this->addFieldMapping('body:format')->defaultValue('editor');
+    $this->addFieldMapping('body:format')->defaultValue('panopoly_wysiwyg_text');
     $this->addFieldMapping('field_openberkeley_faq_cat', 'category');
     $this->addFieldMapping('field_openberkeley_faq_cat:create_term')
       ->defaultValue(TRUE);
     $this->addFieldMapping('field_detailed_question', 'detailed question');
-    $this->addFieldMapping('field_detailed_question:format')->defaultValue('editor');
+    $this->addFieldMapping('field_detailed_question:format')->defaultValue('panopoly_wysiwyg_text');
   }
 
   protected function csvcolumns() {

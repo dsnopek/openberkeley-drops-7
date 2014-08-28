@@ -198,18 +198,10 @@ function openberkeley_wysiwyg_override_filter_default_formats_alter(&$data) {
     );
     $data['panopoly_wysiwyg_text']['filters']['wysiwyg']['settings']['rule_valid_classes'] = array(
       0 => 'wysiwyg-break',
-      2 => 'image-right',
-      4 => 'image-center',
-      6 => 'image-left',
-      8 => 'jquery-colexp',
-      10 => 'jquery-collapse',
-      12 => 'jquery-expand',
-      14 => 'jquery-intro',
-      16 => 'jquery-group',
-      18 => 'jquery-subgroup',
-      20 => 'jquery-title',
-      22 => 'jquery-body',
-      24 => 'img-no-border',
+      2 => 'image-*',
+      4 => 'jquery-*',
+      6 => 'img-no-border',
+      8 => 'openberkeley-*',
     );
     $data['panopoly_wysiwyg_text']['filters']['wysiwyg']['settings']['style_border-1'] = array(
       'border' => 0,

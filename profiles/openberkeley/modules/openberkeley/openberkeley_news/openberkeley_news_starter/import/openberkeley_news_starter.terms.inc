@@ -29,7 +29,7 @@ class OpenBerkeleyNewsStarterTerms extends Migration {
     $this->source = new MigrateSourceCSV($import_path . 'openberkeley_news_starter.terms.csv', NULL, array('header_rows' => 1));
 
     $language = LANGUAGE_NONE;
-    $text_format = 'editor';
+    $text_format = 'panopoly_wysiwyg_text';
     $term_options = MigrateDestinationTerm::options($language, $text_format);
     $this->destination = new MigrateDestinationTerm('field_openberkeley_news_type', $term_options);
 
