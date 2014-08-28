@@ -79,10 +79,15 @@ $DRUSH $DRUSH_OPTS $ALIAS dis -y mediafield
 $DRUSH $DRUSH_OPTS $ALIAS cc all
 
 # Tell the user what to do next.
-echo
-echo "Enabling panopoly_search via Drush fails because it can't contact the"
-echo "SOLR server (it's on the internal Pantheon network)."
-echo
-echo "So, you need to login to the site and enable 'Panopoly Search' via the UI"
+echo 
+echo "**"
+echo "** Enabling panopoly_search via Drush fails because it can't contact the"
+echo "** SOLR server (it's on the internal Pantheon network)."
+echo "**"
+echo "** So, you need to:"
+echo "**  (1) Login to the site and enable 'Panopoly Search' via the UI."
+echo "**  (2) Clear all caches (can be done via UI or drush)."
+echo "**  (3) Index all the content (go to: /admin/config/search/search_api)."
+echo "**"
 echo
 
