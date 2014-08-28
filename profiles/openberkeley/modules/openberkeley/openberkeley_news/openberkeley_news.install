@@ -4,8 +4,10 @@
  * Implements hook_install()
  */
 function openberkeley_news_install() {
-  // enable starter content by default
-  variable_set('openberkeley_news_use_starter_content', 1);
+  if (!variable_get('openberkeley_skip_starter_content', FALSE)) {
+    // enable starter content by default
+    variable_set('openberkeley_news_use_starter_content', 1);
+  }
 }
 
 
@@ -33,7 +35,9 @@ function openberkeley_news_enable() {
    * All this is why we are resorting to the positively un-Drupal-y strategy of
    * using register_shutdown_function.
    */
-  register_shutdown_function('openberkeley_news_install_shutdown');
+  if (!variable_get('openberkeley_skip_starter_content', FALSE)) {
+    register_shutdown_function('openberkeley_news_install_shutdown');
+  }
 }
 
 /**

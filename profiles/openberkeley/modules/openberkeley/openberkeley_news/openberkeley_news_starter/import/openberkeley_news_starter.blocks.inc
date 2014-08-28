@@ -33,7 +33,7 @@ class OpenBerkeleyNewsStarterBlocks extends Migration {
 
     $this->addFieldMapping('info', 'title');
     $this->addFieldMapping('body', 'body');
-    $this->addFieldMapping('format')->defaultValue('editor');
+    $this->addFieldMapping('format')->defaultValue('panopoly_wysiwyg_text');
   }
 
   protected function csvcolumns() {
