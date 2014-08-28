@@ -51,6 +51,11 @@ projects[openberkeley_starter][subdir] = openberkeley
 projects[openberkeley_starter][download][type] = git
 projects[openberkeley_starter][download][url] = git://github.com/ucb-ist-drupal/openberkeley_starter.git
 
+projects[openberkeley_theme][type] = module
+projects[openberkeley_theme][subdir] = openberkeley
+projects[openberkeley_theme][download][type] = git
+projects[openberkeley_theme][download][url] = git://github.com/ucb-ist-drupal/openberkeley_theme.git
+
 projects[openberkeley_news][type] = module
 projects[openberkeley_news][subdir] = openberkeley
 projects[openberkeley_news][download][type] = git
@@ -68,8 +73,8 @@ projects[openberkeley_faq][download][url] = git://github.com/ucb-ist-drupal/open
 projects[berkeley][type] = theme
 projects[berkeley][download][type] = git
 projects[berkeley][download][url] = git://github.com/ucb-ist-drupal/berkeley.git
-projects[berkeley][download][branch] = 7.x-1.x
-projects[berkeley][download][tag] = 7.x-1.0-alpha11
+projects[berkeley][download][branch] = master
+;projects[berkeley][download][tag] = 7.x-1.0-alpha11
 ;projects[berkeley][download][revision] = 6c3173a
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;

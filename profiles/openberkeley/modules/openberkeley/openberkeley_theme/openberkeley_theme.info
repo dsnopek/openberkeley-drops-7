@@ -1,0 +1,11 @@
+name = Open Berkeley Theme
+description = Open Berkeley Theme Feature
+core = 7.x
+package = Open Berkeley
+version = 7.x-0.1
+project = openberkeley_theme
+dependencies[] = panopoly_theme
+dependencies[] = strongarm
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[variable][] = panels_page_allowed_layouts
