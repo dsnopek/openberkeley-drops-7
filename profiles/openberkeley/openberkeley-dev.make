@@ -234,7 +234,7 @@ projects[panopoly_search][subdir] = panopoly
 projects[panopoly_search][download][type] = git
 projects[panopoly_search][download][revision] = ac7d5da
 projects[panopoly_search][download][branch] = 7.x-1.x
-projects[panopoly_search][patch][2080893] = https://www.drupal.org/files/issues/panopoly_search-update-search-api-2080893-12.patch
+projects[panopoly_search][patch][2080893] = https://www.drupal.org/files/issues/panopoly_search-update-search-api-2080893-17.patch
 
 ; For running the automated tests.
 
