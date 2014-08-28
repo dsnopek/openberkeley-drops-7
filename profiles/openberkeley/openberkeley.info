@@ -21,23 +21,18 @@ dependencies[] = file
 dependencies[] = dblog
 dependencies[] = update
 
-; Panopoly Foundation
+; Panopoly Foundation and Toolset
 dependencies[] = panopoly_core
 dependencies[] = panopoly_images
 dependencies[] = panopoly_theme
 dependencies[] = panopoly_magic
 dependencies[] = panopoly_widgets
 dependencies[] = panopoly_users
-; Not be used by Open Berkeley:
-; dependencies[] = panopoly_admin
-
-; Panopoly Toolset
+dependencies[] = panopoly_search
 dependencies[] = panopoly_wysiwyg
 
-; TBD if used with Open Berkeley
-; dependencies[] = panopoly_search
-
-; Not used by Open Berkeley:
+; Not be used by Open Berkeley:
+; dependencies[] = panopoly_admin
 ; dependencies[] = panopoly_pages
 
 ; Panopoly Recommended - Admin & UI
