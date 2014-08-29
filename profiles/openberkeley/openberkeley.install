@@ -20,7 +20,14 @@ function _openberkeley_install_change_content_type($old_type, $new_type) {
     ->condition('type', $old_type, '=')
     ->execute();
 
-  node_type_delete($old_type);
+  db_delete('node_type')
+    ->condition('type', $old_type)
+    ->execute();
+
+  db_delete('field_config_instance')
+    ->condition('entity_type', 'node')
+    ->condition('bundle', $old_type)
+    ->execute();
 }
 
 /**
