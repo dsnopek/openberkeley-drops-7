@@ -223,7 +223,6 @@ function openberkeley_update_7002() {
   module_enable(array(
     // Normal modules.
     'admin_menu_toolbar',
-    'save_draft',
     'shortcut',
     // UC Berkeley modules.
     'ucberkeley_cas',
