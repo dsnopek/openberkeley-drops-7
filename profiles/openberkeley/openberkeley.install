@@ -20,9 +20,7 @@ function _openberkeley_install_change_content_type($old_type, $new_type) {
     ->condition('type', $old_type, '=')
     ->execute();
 
-  db_delete('node_type')
-    ->condition('type', $old_type)
-    ->execute();
+  node_type_delete($old_type);
 }
 
 /**
@@ -277,4 +275,15 @@ function openberkeley_update_7002() {
 
   // Convert 'Existing content' panes to 'Content item' panes.
   _openberkeley_update_7002_convert_node_panes();
+
+  // Remove left-over, unused fields.
+  $unused_fields = array(
+    'field_callout_text',
+    'field_home_page',
+    'field_quote_author',
+    'field_quote_quote',
+  );
+  foreach ($unused_fields as $field_name) {
+    field_delete_field($field_name);
+  }
 }
