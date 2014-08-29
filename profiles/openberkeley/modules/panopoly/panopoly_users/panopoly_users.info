@@ -55,9 +55,9 @@ features[variable][] = user_picture_field_source_entity
 features[variable][] = user_picture_field_source_field
 
 
-; Information added by drush on 2014-08-28
+; Information added by drush on 2014-08-29
 version = "7.x-1.11+1-dev"
 core = "7.x"
 project = "panopoly_users"
-datestamp = "1409234367"
+datestamp = "1409325084"
 
