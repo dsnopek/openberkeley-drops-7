@@ -232,7 +232,7 @@ function openberkeley_update_7002() {
     'openberkeley_wysiwyg_override',
     'openberkeley_pages',
     'openberkeley_media',
-    //'openberkeley_theme',
+    'openberkeley_theme',
     'openberkeley_admin',
     // Fails on Pantheon because we can't reach the SOLR server via Drush. :-/
     // We'll have to enable this module via the UI after the upgrade!
