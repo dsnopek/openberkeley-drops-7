@@ -28,7 +28,8 @@ dependencies[] = panopoly_theme
 dependencies[] = panopoly_magic
 dependencies[] = panopoly_widgets
 dependencies[] = panopoly_users
-dependencies[] = panopoly_search
+// Temporarily remove panopoly_search until we solve problems in OPENUCB-379.
+//dependencies[] = panopoly_search
 dependencies[] = panopoly_wysiwyg
 
 ; Not be used by Open Berkeley:
