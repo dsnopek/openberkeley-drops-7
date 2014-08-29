@@ -9,7 +9,6 @@ sites/*/private
 
 # Local stack development
 sites/*.localhost/*
-sites/default/settings.php*
 
 # security review
 security_review/IGNOREME.txt
