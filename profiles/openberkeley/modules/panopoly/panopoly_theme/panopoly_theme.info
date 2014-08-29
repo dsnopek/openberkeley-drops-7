@@ -10,9 +10,9 @@ stylesheets[all][] = css/panopoly-accordian.css
 features[features_api][] = api:2
 
 
-; Information added by drush on 2014-08-28
+; Information added by drush on 2014-08-29
 version = "7.x-1.11+0-dev"
 core = "7.x"
 project = "panopoly_theme"
-datestamp = "1409234352"
+datestamp = "1409325069"
 

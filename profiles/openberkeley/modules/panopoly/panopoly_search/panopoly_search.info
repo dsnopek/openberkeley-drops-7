@@ -54,9 +54,9 @@ features[views_view][] = panopoly_database_search
 features[views_view][] = panopoly_search
 
 
-; Information added by drush on 2014-08-28
+; Information added by drush on 2014-08-29
 version = "7.x-1.11+1-dev"
 core = "7.x"
 project = "panopoly_search"
-datestamp = "1409234373"
+datestamp = "1409325091"
 

@@ -90,8 +90,8 @@ function openberkeley_pages_module_implements_alter(&$implementations, $hook) {
  * Implements hook_modules_enabled().
  *
  * This hook is implemented to assign some default permissions for Panelizer's
- * handling of taxonomy terms. This has to be done in this hook to run after
- * both features and defaultconfig which power the functionality. Hopefully a
+ * handling of nodes. This has to be done in this hook to run after both
+ * features and defaultconfig which power the functionality. Hopefully a
  * more general solution can be found.
  * @see http://drupal.org/node/1837312
  */
@@ -104,15 +104,18 @@ function openberkeley_pages_modules_enabled($modules) {
     features_revert_module('openberkeley_pages');
     drupal_static_reset('panelizer_entity_plugin_get_handler');
 
-    $roles = array('administrator');
+    $roles = array('administrator', 'builder');
     $content_types = array('openberkeley_content_page', 'openberkeley_landing_page');
-    $components = array('breadcrumbs', 'content', 'context', 'defaults', 'layout', 'overview', 'settings');
+    $components = array(
+      'administrator' => array('breadcrumbs', 'content', 'context', 'defaults', 'layout', 'overview', 'settings'),
+      'builder' => array('layout', 'content'),
+    );
 
     // Setup some default permissions for Panelizer.
     foreach ($roles as $role_name) {
       $role = user_role_load_by_name($role_name);
       foreach ($content_types as $content_type) {
-        foreach ($components as $component) {
+        foreach ($components[$role_name] as $component) {
           user_role_grant_permissions($role->rid, array("administer panelizer node {$content_type} {$component}"));
         }
       }

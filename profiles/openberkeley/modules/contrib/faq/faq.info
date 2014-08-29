@@ -23,9 +23,9 @@ files[] = views/faq.views.inc
 configure = /admin/config/content/faq
 
 
-; Information added by drush on 2014-08-28
+; Information added by drush on 2014-08-29
 version = "7.x-1.0-rc2+10-dev"
 core = "7.x"
 project = "faq"
-datestamp = "1409234323"
+datestamp = "1409325039"
 
