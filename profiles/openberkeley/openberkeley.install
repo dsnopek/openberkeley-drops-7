@@ -286,4 +286,12 @@ function openberkeley_update_7002() {
   foreach ($unused_fields as $field_name) {
     field_delete_field($field_name);
   }
+
+  // Remove the last traces of the 'home page content' feature.
+  if ($home_page_content_view = views_get_view('home_page_content')) {
+    $home_page_content_view->delete();
+  }
+  if ($home_page_content_vocabulary = taxonomy_vocabulary_machine_name_load('home_page_content')) {
+    taxonomy_vocabulary_delete($home_page_content_vocabulary->vid);
+  }
 }
