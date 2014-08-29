@@ -72,7 +72,16 @@ $DRUSH $DRUSH_OPTS $ALIAS fra -y
 # get the field actually purged.
 $DRUSH $DRUSH_OPTS $ALIAS cron
 $DRUSH $DRUSH_OPTS $ALIAS cron
-$DRUSH $DRUSH_OPTS $ALIAS dis -y mediafield
+$DRUSH $DRUSH_OPTS $ALIAS dis -y mediafield || (
+  echo
+  echo "**"
+  echo "** ERROR: We were unable to disable 'mediafield' automatically."
+  echo "**"
+  echo "** You'll have to wait for cron to run a few times, and then disable"
+  echo "** it manually yourself."
+  echo "**"
+  echo
+)
 
 # One final cache clear to hopefully fix the issue where /admin/content
 # is giving 'Page not found' and any other cache-y issuse.
