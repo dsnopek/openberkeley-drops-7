@@ -403,6 +403,18 @@ function openberkeley_admin_user_default_permissions() {
     'module' => 'backup_migrate',
   );
 
+  // Exported permission: 'save draft'.
+  $permissions['save draft'] = array(
+    'name' => 'save draft',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'builder' => 'builder',
+      'contributor' => 'contributor',
+      'editor' => 'editor',
+    ),
+    'module' => 'save_draft',
+  );
+
   // Exported permission: 'see contextual messages'.
   $permissions['see contextual messages'] = array(
     'name' => 'see contextual messages',
